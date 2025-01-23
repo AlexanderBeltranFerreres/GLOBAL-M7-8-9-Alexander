@@ -29,5 +29,11 @@ function crearUsuariDefault()
     // Associar l'usuari a l'equip
     $user->teams()->syncWithoutDetaching([$team->id]);
 
+    // Assegurar que el current_team_id apunte al seu equip
+    if ($user->current_team_id !== $team->id) {
+        $user->current_team_id = $team->id;
+        $user->save();
+    }
+
     return $user;
 }
