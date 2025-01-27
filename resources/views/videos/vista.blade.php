@@ -1,4 +1,4 @@
-<x-videos-app-layout>
+<x-layout>
     <div class="video-container max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg">
         <h1 class="video-title text-3xl font-bold text-gray-800 mb-4">Títol: {{ $video['title'] }}</h1>
         <p class="video-description text-gray-700 mb-6">Descripció: {{ $video['description'] }}</p>
@@ -18,7 +18,7 @@
             target="_blank"
             class="video-link inline-block bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
         >
-            Mira el vídeo en una nova finestra
+            MIRA EL VÍDEO DESDE LA FONT
         </a>
 
         <ul class="video-info mt-6 space-y-2 text-gray-600">
@@ -27,4 +27,4 @@
             <li>Següent vídeo: <span class="font-medium">{{ $video['next'] }}</span></li>
         </ul>
     </div>
-</x-videos-app-layout>
+</x-layout>

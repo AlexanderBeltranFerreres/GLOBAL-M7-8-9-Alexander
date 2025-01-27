@@ -1,9 +1,10 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Unit;
 
-use App\Models\User;
+use App\helpers\defaultVideoHelper;
 use App\Models\Team;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
@@ -76,6 +77,21 @@ class HelpersTest extends TestCase
         // Assert: Verificar que el professor està associat a l'equip
         $this->assertTrue($teacher->teams->contains($team));
         dump("Professor associat correctament a l'equip.");
+    }
+
+    public function test_crear_default_video()
+    {
+        $video = DefaultVideoHelper::crearVideoDefault();
+
+        $this->assertDatabaseHas('videos', [
+            'title' => 'Vídeo de prova',
+            'description' => 'Video de Prova per defecte',
+            'url' => 'https://www.youtube.com/watch?v=LCV-VXEbpDk',
+        ]);
+
+        $this->assertEquals('Vídeo de prova', $video->title);
+        $this->assertEquals('Video de Prova per defecte', $video->description);
+        $this->assertEquals('https://www.youtube.com/watch?v=LCV-VXEbpDk', $video->url);
     }
 
 }
