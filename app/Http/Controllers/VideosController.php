@@ -17,7 +17,7 @@ class VideosController extends Controller
                 'message' => 'Vídeo no s\'ha trobat.'
             ], 404);
         }
-        return response()->json($video);
+        return view('videos.vista', compact('video'));
     }
     public function testedBy($id)
     {

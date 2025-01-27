@@ -15,3 +15,5 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::get('/videos/{id}', \App\Http\Controllers\VideosController::class, 'show')->name('videos.vista');

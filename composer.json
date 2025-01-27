@@ -33,7 +33,8 @@
         },
         "files": [
             "app/helpers/defaultUserHelper.php",
-            "app/helpers/defaultTeacherHelper.php"
+            "app/helpers/defaultTeacherHelper.php",
+            "app/helpers/defaultVideoHelper.php"
         ]
     },
     "autoload-dev": {
