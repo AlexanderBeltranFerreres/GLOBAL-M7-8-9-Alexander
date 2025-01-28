@@ -1,0 +1,12 @@
+includes:
+  - ./vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+  paths:
+    - app
+    - database
+  level: 5
+  excludePaths:
+    analyse:
+      - storage/*
+      - bootstrap/cache/*

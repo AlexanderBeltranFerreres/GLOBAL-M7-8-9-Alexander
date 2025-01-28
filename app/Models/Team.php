@@ -8,6 +8,9 @@ use Laravel\Jetstream\Events\TeamDeleted;
 use Laravel\Jetstream\Events\TeamUpdated;
 use Laravel\Jetstream\Team as JetstreamTeam;
 
+/**
+ * @property mixed $owner
+ */
 class Team extends JetstreamTeam
 {
     /** @use HasFactory<\Database\Factories\TeamFactory> */

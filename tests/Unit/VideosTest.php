@@ -11,9 +11,9 @@ class VideosTest extends TestCase
         $video = new Video();
         $video-> published_at = '2025-01-27 22:48:00';
 
-        $formattedDate = $video->getFormattedPublishedAtAttribute();
+        $formattedDate = $video->getFormattedPublishedAtDate();
 
-        $this-> assertEquals('27 de 01 de 2025', $formattedDate);
+        $this-> assertEquals('27/01/2025 22:48', $formattedDate);
     }
 
     public function test_can_get_formatted_published_at_date_when_not_published()
@@ -21,7 +21,7 @@ class VideosTest extends TestCase
         $video = new Video();
         $video-> published_at = null;
 
-        $formattedDate = $video->getFormattedPublishedAtAttribute();
+        $formattedDate = $video->getFormattedPublishedAtDate();
 
         $this-> assertEquals('No publicat', $formattedDate);
     }
