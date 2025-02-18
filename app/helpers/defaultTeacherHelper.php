@@ -17,6 +17,7 @@ function crearProfessorDefault()
         [
             'name' => $teacherConfig['name'],
             'password' => Hash::make($teacherConfig['password']),
+            'super_admin' => true
         ]
     );
 
