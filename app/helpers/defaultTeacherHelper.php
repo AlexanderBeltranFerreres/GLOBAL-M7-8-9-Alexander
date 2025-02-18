@@ -21,14 +21,8 @@ function crearProfessorDefault()
         ]
     );
 
-    // Crear l'equip si no existeix i associar-lo a l'usuari (teacher)
-    $team = Team::firstOrCreate(
-        ['name' => $teamConfig['name']],
-        ['personal_team' => true, 'user_id' => $teacher->id] // Assignar user_id
-    );
+    add_personal_team($teacher, 'Default Teacher Team');
 
-    // Associar el mestre a l'equip si encara no s'ha fet
-    $teacher->teams()->syncWithoutDetaching([$team->id]);
 
     return $teacher;
 }

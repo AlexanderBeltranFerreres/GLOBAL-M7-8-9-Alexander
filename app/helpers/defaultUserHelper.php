@@ -20,20 +20,8 @@ function crearUsuariDefault()
         ]
     );
 
-    // Crear l'equip si no existeix i associar-lo a l'usuari
-    $team = Team::firstOrCreate(
-        ['name' => $teamConfig['name']],
-        ['personal_team' => true, 'user_id' => $user->id] // Assignar user_id
-    );
+    add_personal_team($user, 'Default User Team');
 
-    // Associar l'usuari a l'equip
-    $user->teams()->syncWithoutDetaching([$team->id]);
-
-    // Assegurar que el current_team_id apunte al seu equip
-    if ($user->current_team_id !== $team->id) {
-        $user->current_team_id = $team->id;
-        $user->save();
-    }
 
     return $user;
 }

@@ -18,24 +18,31 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->withPersonalTeam()->create();
 
-        User::factory()->withPersonalTeam()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => bcrypt('12345'),
-        ]);
+        // Crear permisos i rols
+        create_permissions();
 
-        User::factory()->withPersonalTeam()->create([
-            'name' => 'Test User Dos',
-            'email' => 'testdos@example.com',
-            'password' => bcrypt('12345'),
-        ]);
+        $superAdmin = create_superadmin_user();
+        $superAdmin->save();
+        $regularUser = create_regular_user();
+        $regularUser->save();
+        $videoManager = create_video_manager_user();
+        $videoManager->save();
 
-        // Crear vídeos reutilitzant el helper
-        defaultVideoHelper::crearVideoDefault();
 
-        defaultVideoHelper::crearVideoDefault([
-            'title' => 'Vídeo de prova Dos',
-            'description' => 'Video de Prova per defecte segona prova',
-        ]);
+        // Assignar rols als usuaris
+        $superAdmin->assignRole('super_admin');
+        $regularUser->assignRole('regular');
+        $videoManager->assignRole('video_manager');
+
+        // Crear altres usuaris per defecte
+        createDefaultTeacher();
+        createDefaultUser();
+
+        // Crear vídeos per defecte
+        DefaultVideoHelper::crearVideoDefault();
+
+        // Definir portes d'accés (Gates)
+        define_gates();
+
     }
 }
