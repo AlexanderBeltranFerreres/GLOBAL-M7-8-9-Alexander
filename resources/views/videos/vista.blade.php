@@ -5,7 +5,7 @@
 
         <div class="video-frame aspect-w-16 aspect-h-9 mb-6">
             <iframe
-                src="{{ $video['url'] }}"
+                src="{{ $video['embed_url'] }}"
                 width="800"
                 height="450"
                 class="w-full h-full border rounded-lg"

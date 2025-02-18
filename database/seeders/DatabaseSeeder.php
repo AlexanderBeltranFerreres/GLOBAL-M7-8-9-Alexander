@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\helpers\defaultVideoHelper;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Video;
@@ -29,24 +30,12 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('12345'),
         ]);
 
-        Video::create([
-            'title' => 'Vídeo de prova',
-            'description' => 'Video de Prova per defecte',
-            'url' => 'https://www.youtube.com/watch?v=LCV-VXEbpDk',
-            'published_at' => Carbon::now()->toDateTimeString(),
-            'previous' => null,
-            'next' => null,
-            'series_id' => null,
-        ]);
+        // Crear vídeos reutilitzant el helper
+        defaultVideoHelper::crearVideoDefault();
 
-        Video::create([
+        defaultVideoHelper::crearVideoDefault([
             'title' => 'Vídeo de prova Dos',
             'description' => 'Video de Prova per defecte segona prova',
-            'url' => 'https://www.youtube.com/watch?v=LCV-VXEbpDk',
-            'published_at' => Carbon::now()->toDateTimeString(),
-            'previous' => null,
-            'next' => null,
-            'series_id' => null,
         ]);
     }
 }

@@ -3,13 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Laravel\Jetstream\Events\TeamCreated;
 use Laravel\Jetstream\Events\TeamDeleted;
 use Laravel\Jetstream\Events\TeamUpdated;
 use Laravel\Jetstream\Team as JetstreamTeam;
+use App\Models\User;
 
 /**
- * @property mixed $owner
+ * @property int $id
+ * @property string $name
+ * @property bool $personal_team
+ * @property int $user_id
+ * @property-read User $owner
  */
 class Team extends JetstreamTeam
 {
@@ -19,7 +25,7 @@ class Team extends JetstreamTeam
     /**
      * The attributes that are mass assignable.
      *
-     * @var array<int, string>
+     * @var list<string>
      */
     protected $fillable = [
         'name',
@@ -39,25 +45,19 @@ class Team extends JetstreamTeam
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast.
      *
-     * @return array<string, string>
+     * @var array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            'personal_team' => 'boolean',
-        ];
-    }
+    protected $casts = [
+        'personal_team' => 'boolean',
+    ];
 
-//    public static function firstOrCreate(array $attributes, array $values = [])
-//    {
-//        $instance = static::query()->where($attributes)->first();
-//
-//        if (!$instance) {
-//            $instance = static::create(array_merge($attributes, $values));
-//        }
-//
-//        return $instance;
-//    }
+    /**
+     * Relació amb l'usuari propietari de l'equip.
+     */
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

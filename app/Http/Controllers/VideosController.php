@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Video;
 use Illuminate\Routing\Controller;
 
@@ -19,18 +20,9 @@ class VideosController extends Controller
         }
         return view('videos.vista', compact('video'));
     }
-    public function testedBy($id)
+    public function testedBy()
     {
-        // Recuperem el vídeo per ID
-        $video = Video::find($id);
-
-        if (!$video) {
-            return response()->json([
-                'message' => 'Vídeo no trobat.'
-            ], 404);
-        }
-        $testers = $video->testedBy;
-        return response()->json($testers);
+        return $this->belongsToMany(User::class, 'tested_by', 'video_id', 'user_id');
     }
 
 }
