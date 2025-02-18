@@ -8,6 +8,7 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+
     /**
      * Register any application services.
      */
@@ -21,9 +22,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define("create-videos", fn(User $user)=>$user->hasPermissionTo('create-videos'));
-        Gate::define("update-videos", fn(User $user)=>$user->hasPermissionTo('update-videos'));
-        Gate::define("delete-videos", fn(User $user)=>$user->hasPermissionTo('delete-videos'));
-        Gate::define("manage-users", fn(User $user)=>$user->isSuperAdmin());
+        Gate::define('create-videos', fn(User $user) => $user->hasPermissionTo('create videos'));
+        Gate::define('edit-videos', fn(User $user) => $user->hasPermissionTo('edit videos'));
+        Gate::define('delete-videos', fn(User $user) => $user->hasPermissionTo('delete videos'));
+
+        Gate::define('manage-users', fn(User $user) => $user->isSuperAdmin());
     }
 }

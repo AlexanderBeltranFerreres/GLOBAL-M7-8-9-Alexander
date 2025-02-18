@@ -31,7 +31,7 @@ Edit this file to define the terms of service for your application.
 
 ---
 
-## SPRINT 2
+~~## SPRINT 2
 
 ### Què s'ha de fer al 2n Sprint?
 
@@ -80,3 +80,63 @@ Edit this file to define the terms of service for your application.
 10. **Larastan:**
     - Instal·lar i configurar Larastan.
     - Corregir els errors detectats durant l'anàlisi del codi.
+
+## SPRINT 3
+
+### Què s'ha fet al 3r Sprint?
+
+#### Correccions del SPRINT 2:
+- Corregir els errors identificats durant el segon sprint.
+
+#### Noves funcionalitats:
+1. **Gestió de permisos i rols:**
+    - Instal·lar el paquet [`spatie/laravel-permission`](https://spatie.be/docs/laravel-permission/v6/installation-laravel) per gestionar permisos i rols.
+
+2. **Migració i model d'usuaris:**
+    - Crear una migració per afegir el camp `super_admin` a la taula d'usuaris.
+    - Afegir al model d'usuaris les funcions:
+        - `testedBy()`
+        - `isSuperAdmin()`
+
+3. **Millores als helpers:**
+    - Afegir el rol `superadmin` al professor a la funció `create_default_professor()`.
+    - Crear la funció `add_personal_team()` per separar la creació del team dels usuaris.
+    - Definir helpers per crear usuaris per defecte:
+        - `create_regular_user()` amb valors (`regular`, `regular@videosapp.com`, `123456789`)
+        - `create_video_manager_user()` amb valors (`Video Manager`, `videosmanager@videosapp.com`, `123456789`)
+        - `create_superadmin_user()` amb valors (`Super Admin`, `superadmin@videosapp.com`, `123456789`)
+        - `define_gates()` per definir portes d'accés.
+        - `create_permissions()` per crear permisos específics.
+
+4. **Polítiques d'autorització i portes d'accés:**
+    - A `AppServiceProvider`, registrar les polítiques d'autorització i definir les portes d'accés.
+
+5. **DatabaseSeeder:**
+    - Afegir permisos i usuaris per defecte:
+        - `superadmin`
+        - `regular user`
+        - `video manager`
+
+6. **Publicació de stubs:**
+    - Publicar i personalitzar els stubs de Laravel.
+        - [Exemple](https://laravel-news.com/customizing-stubs-in-laravel)
+
+7. **Tests:**
+    - **`VideosManageControllerTest`** a `tests/Feature/Videos`:
+        - Comprovar la gestió de vídeos amb diferents permisos:
+            - `user_with_permissions_can_manage_videos()`
+            - `regular_users_cannot_manage_videos()`
+            - `guest_users_cannot_manage_videos()`
+            - `superadmins_can_manage_videos()`
+            - `loginAsVideoManager()`
+            - `loginAsSuperAdmin()`
+            - `loginAsRegularUser()`
+    - **`UserTest`** a `tests/Unit`:
+        - Comprovar la funció `isSuperAdmin()`
+
+8. **Guia del projecte:**
+    - Actualitzar `resources/markdown/terms` amb els canvis del SPRINT 3.
+
+9. **Larastan:**
+    - Comprovar amb Larastan tots els fitxers creats o modificats per assegurar la qualitat del codi.
+

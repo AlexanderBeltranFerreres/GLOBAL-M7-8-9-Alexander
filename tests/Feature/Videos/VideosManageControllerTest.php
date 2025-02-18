@@ -2,9 +2,7 @@
 
 namespace Tests\Feature\Videos;
 
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Gate;
 use Tests\TestCase;
 
 class VideosManageControllerTest extends TestCase
@@ -26,7 +24,7 @@ class VideosManageControllerTest extends TestCase
 
         $response = $this->actingAs($regularUser)->get(route('videos.manage'));
 
-        $response->assertStatus(403); // Forbidden
+        $response->assertStatus(403);
     }
 
     public function test_guest_users_cannot_manage_videos()
@@ -44,8 +42,6 @@ class VideosManageControllerTest extends TestCase
 
         $response->assertStatus(200);
     }
-
-    // Funcions de login per a cada tipus d'usuari
     private function loginAsVideoManager()
     {
         $user = create_video_manager_user();

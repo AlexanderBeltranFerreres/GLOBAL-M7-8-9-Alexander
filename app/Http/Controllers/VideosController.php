@@ -20,9 +20,5 @@ class VideosController extends Controller
         }
         return view('videos.vista', compact('video'));
     }
-    public function testedBy()
-    {
-        return $this->belongsToMany(User::class, 'tested_by', 'video_id', 'user_id');
-    }
 
 }

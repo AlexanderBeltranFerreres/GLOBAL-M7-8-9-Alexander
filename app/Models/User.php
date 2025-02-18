@@ -11,7 +11,9 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Team;
+use Spatie\Permission\Traits\HasRoles;
 use Tests\Unit\HelpersTest;
+
 
 /**
  * @property int $id
@@ -29,6 +31,7 @@ class User extends Authenticatable
     use HasTeams;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -91,5 +94,10 @@ class User extends Authenticatable
     public function testedBy()
     {
         return HelpersTest::class;
+    }
+
+    public function team(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Team::class, 'current_team_id');
     }
 }

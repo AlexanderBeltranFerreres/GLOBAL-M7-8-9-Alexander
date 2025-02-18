@@ -5,7 +5,6 @@ use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use App\Models\User;
 
-
 function createDefaultUser()
 {
     $user = User::create([
