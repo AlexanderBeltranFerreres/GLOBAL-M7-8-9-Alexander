@@ -8,7 +8,6 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-
     /**
      * Register any application services.
      */
@@ -22,10 +21,27 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Gate::define('create-videos', fn(User $user) => $user->hasPermissionTo('create videos'));
-        Gate::define('edit-videos', fn(User $user) => $user->hasPermissionTo('edit videos'));
-        Gate::define('delete-videos', fn(User $user) => $user->hasPermissionTo('delete videos'));
+        // Definir les portes per a la gestió de vídeos
+        Gate::define('create-videos', function (User $user) {
+            return $user->hasPermissionTo('create videos');
+        });
 
-        Gate::define('manage-users', fn(User $user) => $user->isSuperAdmin());
+        Gate::define('edit-videos', function (User $user) {
+            return $user->hasPermissionTo('edit videos');
+        });
+
+        Gate::define('delete-videos', function (User $user) {
+            return $user->hasPermissionTo('delete videos');
+        });
+
+        // Definir les portes per a la gestió d'usuaris
+        Gate::define('manage-users', function (User $user) {
+            return $user->isSuperAdmin();
+        });
+
+        // Porta per a la gestió de vídeos, accessible per video managers i super admins
+        Gate::define('manage-videos', function (User $user) {
+            return $user->hasRole('video_manager') || $user->isSuperAdmin();
+        });
     }
 }

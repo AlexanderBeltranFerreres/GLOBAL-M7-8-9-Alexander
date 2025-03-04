@@ -3,12 +3,9 @@
 namespace Database\Seeders;
 
 use App\helpers\defaultVideoHelper;
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Video;
-use Carbon\Carbon;
 use Illuminate\Database\Seeder;
-
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -16,23 +13,28 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->withPersonalTeam()->create();
+        // Crear rols de manera segura
+        $superAdminRole = Role::firstOrCreate(['name' => 'super_admin']);
+        $regularRole = Role::firstOrCreate(['name' => 'regular']);
+        $videoManagerRole = Role::firstOrCreate(['name' => 'video_manager']);
 
-        // Crear permisos i rols
+        // Crear permisos
         create_permissions();
 
+        // Crear usuaris per defecte
         $superAdmin = create_superadmin_user();
-        $superAdmin->save();
         $regularUser = create_regular_user();
-        $regularUser->save();
         $videoManager = create_video_manager_user();
-        $videoManager->save();
-
 
         // Assignar rols als usuaris
-        $superAdmin->assignRole('super_admin');
-        $regularUser->assignRole('regular');
-        $videoManager->assignRole('video_manager');
+        $superAdmin->assignRole($superAdminRole);
+        $regularUser->assignRole($regularRole);
+        $videoManager->assignRole($videoManagerRole);
+
+        // Guardar usuaris
+        $superAdmin->save();
+        $regularUser->save();
+        $videoManager->save();
 
         // Crear altres usuaris per defecte
         createDefaultTeacher();
@@ -43,6 +45,5 @@ class DatabaseSeeder extends Seeder
 
         // Definir portes d'accés (Gates)
         define_gates();
-
     }
 }

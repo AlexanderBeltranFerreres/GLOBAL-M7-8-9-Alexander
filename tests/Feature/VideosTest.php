@@ -2,10 +2,13 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\Video;
 class VideosTest extends TestCase
 {
+    use RefreshDatabase;
+
    public function test_users_can_view_videos()
    {
      $video = Video::create([
@@ -19,7 +22,7 @@ class VideosTest extends TestCase
      ]);
 
      //petició GET al end point del vide
-     $response = $this->get(route('/videos/'.$video->id));
+       $response = $this->get(route('videos.vista', ['id' => $video->id]));
 
      //Mirem si el estatus és 200 que vol dir que funciona be
        // I mirem el titol
@@ -30,7 +33,7 @@ class VideosTest extends TestCase
    public function test_users_cant_view_not_existing_videos()
    {
         //petició GET a un video que no existeix
-        $response = $this->get(route('/videos/56982'));
+       $response = $this->get(route('videos.vista', ['id' => 56982]));
 
         //Mirem si el estatus és 404 que vol dir que no existeix
         $response->assertStatus(404);

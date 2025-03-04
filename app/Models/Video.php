@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Video extends Model
 {
-    protected $table = 'videos';
+    public $table = 'videos';
 
     /**
      * @var list<string>
