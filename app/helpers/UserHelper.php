@@ -7,156 +7,117 @@ use App\Models\User;
 
 function createDefaultUser()
 {
-    $existingUser = User::where('email', config('default_users.default_user.email'))->first();
-
-    if ($existingUser) {
-        return $existingUser; // Si ja existeix, simplement el retornem
-    }
-
-    $user = User::create([
-        'name' => config('default_users.default_user.name', 'Usuari per defecte'),
-        'email' => config('default_users.default_user.email', 'usuari@defecte.com'),
-        'password' => bcrypt(config('default_users.default_user.password', 'password')),
-    ]);
-
-    $user->save();
-
-    add_personal_team($user, config('default_users.default_team.name', 'Equip per defecte'));
-
-    // Assignar el rol per defecte
-    $user->assignRole('regular');
-
-    return $user;
+    return createUser(
+        config('default_users.default_user.email', 'usuari@defecte.com'),
+        config('default_users.default_user.name', 'Usuari per defecte'),
+        config('default_users.default_user.password', 'password'),
+        'regular'
+    );
 }
-
 
 function createDefaultTeacher()
 {
-    $existingTeacher = User::where('email', config('default_users.default_teacher.email'))->first();
-
-    if ($existingTeacher) {
-        return $existingTeacher; // Si ja existeix, simplement el retornem
-    }
-
-    $teacher = User::create([
-        'name' => config('default_users.default_teacher.name', 'Mestre per defecte'),
-        'email' => config('default_users.default_teacher.email', 'mestre@defecte.com'),
-        'password' => bcrypt(config('default_users.default_teacher.password', 'password')),
-        'super_admin' => true,
-    ]);
-
-    $teacher->save();
-
-    add_personal_team($teacher, config('default_users.default_team.name', 'Equip per defecte'));
-
-    // Assignar el rol d'super admin
-    $teacher->assignRole('super_admin');
-
-    return $teacher;
-}
-
-function add_personal_team(User $user, string $teamName)
-{
-    $team = Team::create([
-        'name' => $teamName,
-        'user_id' => $user->id,
-        'personal_team' => true,
-    ]);
-
-    $user->team()->associate($team);
-    $user->save();
+    return createUser(
+        config('default_users.default_teacher.email', 'mestre@defecte.com'),
+        config('default_users.default_teacher.name', 'Mestre per defecte'),
+        config('default_users.default_teacher.password', 'password'),
+        'super_admin',
+        true // Marca com a super_admin
+    );
 }
 
 function create_regular_user()
 {
-    // Crear l'usuari regular i assignar-li el rol
-    $user = User::firstOrCreate(
-        ['email' => 'regular@videosapp.com'],
-        [
-            'name' => 'Regular',
-            'password' => bcrypt('123456789'),
-        ]
+    return createUser(
+        'regular@videosapp.com',
+        'Regular',
+        '123456789',
+        'regular'
     );
-
-    // Afegir l'equip personal i assignar el rol
-    add_personal_team($user, 'Equip per defecte');
-    $user->assignRole('regular');
-
-    return $user;
 }
 
 function create_video_manager_user()
 {
-    // Crear l'usuari video manager i assignar-li el rol
-    $user = User::firstOrCreate(
-        ['email' => 'videosmanager@videosapp.com'],
-        [
-            'name' => 'Video Manager',
-            'password' => bcrypt('123456789'),
-        ]
+    return createUser(
+        'videosmanager@videosapp.com',
+        'Video Manager',
+        '123456789',
+        'video_manager'
     );
-
-    // Afegir l'equip personal i assignar el rol
-    add_personal_team($user, 'Equip per defecte');
-    $user->assignRole('video_manager');
-
-    return $user;
 }
 
 function create_superadmin_user()
 {
-    // Crear l'usuari super admin i assignar-li el rol
+    return createUser(
+        'superadmin@videosapp.com',
+        'Super Admin',
+        '123456789',
+        'super_admin',
+        true // Marca com a super_admin
+    );
+}
+
+function createUser($email, $name, $password, $role, $superAdmin = false)
+{
+    // Crea o obté un usuari amb els paràmetres especificats
     $user = User::firstOrCreate(
-        ['email' => 'superadmin@videosapp.com'],
+        ['email' => $email],
         [
-            'name' => 'Super Admin',
-            'password' => bcrypt('123456789'),
-            'super_admin' => true,
+            'name' => $name,
+            'password' => bcrypt($password),
+            'super_admin' => $superAdmin,
         ]
     );
 
-    // Afegir l'equip personal i assignar el rol
-    add_personal_team($user, 'Equip per defecte');
-    $user->assignRole('super_admin');
+    // Comprovem que $user sigui una instància de User
+    if ($user instanceof User) {
+        add_personal_team($user, 'Equip per defecte');
+        $user->assignRole($role);
+    }
 
     return $user;
 }
 
+function add_personal_team(User $user, string $teamName)
+{
+    // Comprova si l'usuari ja té un equip assignat
+    if (!$user->team) {
+        // Crea un nou equip per l'usuari
+        $team = Team::create([
+            'name' => $teamName,
+            'user_id' => $user->id,
+            'personal_team' => true,
+        ]);
+
+        // Associa aquest equip amb l'usuari
+        $user->team()->associate($team);
+
+        // Desa els canvis de l'usuari, assignant-li l'equip creat
+        $user->save();
+    }
+}
+
 function define_gates()
 {
-    // Defineix les portes d'autorització
-    Gate::define('manage-videos', function (\App\Models\User $user) {
-        return $user->hasRole('video_manager') || $user->isSuperAdmin();
-    });
-
-    Gate::define('manage-users', function (\App\Models\User $user) {
-        return $user->isSuperAdmin();
-    });
+    Gate::define('manage-videos', fn(User $user) => $user->can('manage videos'));
+    Gate::define('manage-users', fn(User $user) => $user->can('manage users'));
 }
 
 function create_permissions()
 {
-    // Defineix els permisos
-    $permissions = [
-        'create videos',
-        'edit videos',
-        'delete videos',
-        'manage users'
-    ];
+    $permissions = ['create videos', 'edit videos', 'delete videos', 'manage videos', 'manage users'];
 
     foreach ($permissions as $permission) {
         Permission::firstOrCreate(['name' => $permission]);
     }
 
-    // Defineix els rols i els permisos associats
     $roles = [
         'regular' => [],
-        'video_manager' => ['create videos', 'edit videos', 'delete videos'],
+        'video_manager' => ['create videos', 'edit videos', 'delete videos', 'manage videos'],
         'super_admin' => Permission::pluck('name')->toArray(),
     ];
 
     foreach ($roles as $role => $perms) {
-        $roleInstance = Role::firstOrCreate(['name' => $role]);
-        $roleInstance->syncPermissions($perms);
+        Role::firstOrCreate(['name' => $role])->syncPermissions($perms);
     }
 }

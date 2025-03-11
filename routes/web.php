@@ -1,23 +1,36 @@
 <?php
 
 use App\Http\Controllers\VideosController;
+use App\Http\Controllers\VideosManageController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
+
+
 Route::middleware([
-    'auth', // Només els usuaris autenticats poden veure aquestes rutes
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
-
-    // Ruta per gestionar vídeos amb política d'autorització i rols específics
-    Route::get('/videos/manage', [VideosController::class, 'manage'])
-        ->name('videos.manage')
-        ->middleware('role:video_manager|super_admin'); // Protegeix amb rols
 });
 
-Route::get('/videos/{id}', [VideosController::class, 'show'])->name('videos.vista');
+
+// Rutes per a la visualització de vídeos
+Route::get('/video/{id}', [VideosController::class, 'show'])->name('videos.show');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/videos/manage', [VideosController::class, 'manage'])->name('videos.manage');
+});
+
+//Route::get('/videos', [VideosManageController::class, 'index'])->name('videos.index');
+//
+//// Rutes de gestió de vídeos amb protecció de permisos
+Route::middleware(['auth', 'can:manage-videos'])->group(function () {
+    Route::get('/videos/manage', [VideosManageController::class, 'index'])->name('videos.manage.index');
+});
