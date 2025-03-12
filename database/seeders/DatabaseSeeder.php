@@ -42,6 +42,9 @@ class DatabaseSeeder extends Seeder
 
         // Crear vídeos per defecte
         DefaultVideoHelper::crearVideoDefault();
+        DefaultVideoHelper::crearVideoDefault2();
+        DefaultVideoHelper::crearVideoDefault3();
+
 
         // Definir portes d'accés (Gates)
         define_gates();
