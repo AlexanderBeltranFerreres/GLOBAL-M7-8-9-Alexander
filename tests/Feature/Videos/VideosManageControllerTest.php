@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Videos;
 
+use App\helpers\defaultVideoHelper;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -21,7 +22,11 @@ class VideosManageControllerTest extends TestCase
 
     public function test_user_with_permissions_can_manage_videos()
     {
-        // Login com a VideoManager
+        $video1 = DefaultVideoHelper::crearVideoDefault();
+        $video2 = DefaultVideoHelper::crearVideoDefault2();
+        $video3 = DefaultVideoHelper::crearVideoDefault3();
+
+        // Login amb permisos
         $videoManager = $this->loginAsVideoManager();
 
         // Fer la petició GET per accedir a la llista de vídeos
@@ -29,6 +34,10 @@ class VideosManageControllerTest extends TestCase
 
         // Assert que la resposta sigui correcta
         $response->assertStatus(200);
+
+        $response->assertSee($video1->title);
+        $response->assertSee($video2->title);
+        $response->assertSee($video3->title);
 
     }
 

@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\User;
 use Tests\TestCase;
 use App\Models\Video;
 class VideosTest extends TestCase
@@ -24,6 +25,19 @@ class VideosTest extends TestCase
         $formattedDate = $video->getFormattedPublishedAtDate();
 
         $this-> assertEquals('No publicat', $formattedDate);
+    }
+
+    public function test_user_without_permissions_can_see_default_videos_page()
+    {
+        // Crear un usuari sense permisos
+        $user = User::factory()->create();
+
+        // Realitzar una petició GET a la pàgina per defecte de vídeos
+        $response = $this->actingAs($user)->get(route('videos.index'));
+
+        // Verificar que l'usuari pot veure la pàgina de vídeos
+        $response->assertStatus(200);
+        $response->assertSee('Videos');
     }
 
 
