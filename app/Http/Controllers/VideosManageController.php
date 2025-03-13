@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Tests\Feature\Videos\VideosManageControllerTest;
 
 class VideosManageController extends Controller

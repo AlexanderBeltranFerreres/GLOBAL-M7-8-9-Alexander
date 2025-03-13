@@ -31,7 +31,7 @@ Edit this file to define the terms of service for your application.
 
 ---
 
-~~## SPRINT 2
+## SPRINT 2
 
 ### Què s'ha de fer al 2n Sprint?
 
@@ -140,3 +140,54 @@ Edit this file to define the terms of service for your application.
 9. **Larastan:**
     - Comprovar amb Larastan tots els fitxers creats o modificats per assegurar la qualitat del codi.
 
+
+## SPRINT 4
+
+### Què s'ha fet al 4t Sprint?
+
+#### Correccions del SPRINT 3:
+- Es van corregir els errors trobats en el tercer sprint, com l'accés incorrecte a la ruta `/videosmanage` per usuaris amb permisos adequats. Els tests s'han actualitzat per garantir que els usuaris amb permisos puguin accedir-hi correctament.
+
+#### Noves funcionalitats:
+1. **Controlador VideosManageController:**
+    - He creat el controlador **VideosManageController** amb les funcions següents:
+        - `testedBy()`
+        - `index()`
+        - `store()`
+        - `show()`
+        - `edit()`
+        - `update()`
+        - `delete()`
+        - `destroy()`
+    - Aquest controlador gestiona la creació, edició, actualització i eliminació de vídeos per usuaris amb els permisos adequats.
+
+2. **Controlador VideosController:**
+    - He afegit la funció `index()` per mostrar tots els vídeos públicament a la pàgina principal.
+
+3. **Migració i Seeder:**
+    - He afegit tres vídeos predeterminats al **DatabaseSeeder** per poder utilitzar-los en els tests i en les vistes.
+
+4. **Vistes per al CRUD de vídeos:**
+    - He creat les següents vistes dins de la carpeta `resources/views/videos/manage`:
+        - `index.blade.php`: Taula per mostrar tots els vídeos.
+        - `create.blade.php`: Formulari per afegir vídeos (amb l'atribut `data-qa` per facilitar els tests).
+        - `edit.blade.php`: Formulari per editar vídeos existents.
+        - `delete.blade.php`: Confirmació per eliminar vídeos.
+    - He afegit també la vista `index.blade.php` a la ruta pública `resources/views/videos/index.blade.php`, que mostra tots els vídeos i permet accedir als detalls (funció `show()`).
+
+5. **Tests de Vídeos i Permisos:**
+    - He modificat el test `user_with_permissions_can_manage_videos()` per garantir que hi hagi tres vídeos creats.
+    - A **VideoTest**, he creat les següents funcions:
+        - `user_without_permissions_can_see_default_videos_page`
+        - `user_with_permissions_can_see_default_videos_page`
+        - `not_logged_users_can_see_default_videos_page`
+    - A **VideosManageControllerTest**, he creat diverses funcions per comprovar que els usuaris amb permisos puguin gestionar vídeos i que els usuaris sense permisos no puguin accedir a les funcionalitats de gestió.
+
+6. **Rutes i Middleware:**
+    - He creat les rutes per al CRUD de vídeos amb el middleware corresponent.
+    - Les rutes per al CRUD només apareixen per usuaris logejats, mentre que la ruta per veure tots els vídeos és pública.
+
+7. **Actualització de la Guia:**
+    - He actualitzat la guia del projecte a `resources/markdown/terms` per incloure els canvis realitzats durant aquest sprint.
+
+---
