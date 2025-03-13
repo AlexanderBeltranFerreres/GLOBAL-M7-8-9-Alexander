@@ -94,4 +94,15 @@ class VideosManageControllerTest extends TestCase
         $user->assignRole('regular');
         return $user;
     }
+
+    public function test_user_with_permissions_can_see_add_videos()
+    {
+        $videoManager = $this->loginAsVideoManager();
+
+        $response = $this->actingAs($videoManager)->get(route('videos.manage.create'));
+
+        $response->assertStatus(200);
+    }
+
+
 }

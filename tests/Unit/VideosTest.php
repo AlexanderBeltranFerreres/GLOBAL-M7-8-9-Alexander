@@ -55,7 +55,7 @@ class VideosTest extends TestCase
 
     public function test_not_logged_users_can_see_default_videos_page()
     {
-        // Realitzar una petició GET a la pàgina per defecte de vídeos sense estar loguejat
+        // Peticio sense estar loguejat
         $response = $this->get(route('videos.index'));
 
         // Verificar que la resposta és exitosa i l'usuari no ha d'estar autenticat
