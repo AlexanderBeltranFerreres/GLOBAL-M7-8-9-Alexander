@@ -13,6 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        //Borrem cache de permisos
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
         // Crear permisos
         create_permissions();
 
@@ -21,14 +24,18 @@ class DatabaseSeeder extends Seeder
         $regularUser = create_regular_user();
         $videoManager = create_video_manager_user();
 
-        // Guardar usuaris
-        $superAdmin->save();
-        $regularUser->save();
-        $videoManager->save();
-
         $superAdmin->refresh()->assignRole('super_admin');
         $regularUser->refresh()->assignRole('regular');
         $videoManager->refresh()->assignRole('video_manager');
+
+        $superAdmin->syncPermissions(Permission::all());
+
+        // Guardar usuaris
+        /*$superAdmin->save();
+        $regularUser->save();
+        $videoManager->save();*/
+
+
 
         createDefaultTeacher();
         createDefaultUser();

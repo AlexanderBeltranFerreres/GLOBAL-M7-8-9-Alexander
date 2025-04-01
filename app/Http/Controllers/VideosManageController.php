@@ -51,6 +51,7 @@ class VideosManageController extends Controller
             'previous' => $validated['previous'],
             'next' => $validated['next'],
             'series_id' => $validated['series_id'],
+            'user_id' => auth()->id()
         ]);
 
         return redirect()->route('videos.manage.index')->with('success', 'El video s\'ha creat correctament');
@@ -122,6 +123,7 @@ class VideosManageController extends Controller
             'previous' => $validated['previous'],
             'next' => $validated['next'],
             'series_id' => $validated['series_id'],
+            'user_id' => auth()->id()
         ]);
 
         return redirect()->route('videos.manage.index')->with('success', 'El video s\'ha editat correctament');
@@ -150,4 +152,5 @@ class VideosManageController extends Controller
     {
         return VideosManageControllerTest::class;
     }
+
 }

@@ -16,6 +16,7 @@ class defaultVideoHelper {
             'previous' => null,
             'next' => null,
             'series_id' => 1,
+            'user_id' => 3,
         ];
 
         $data= array_merge($defaultData, $overrides);
@@ -31,7 +32,8 @@ class defaultVideoHelper {
             'published_at' => Carbon::now()->toDateTimeString(),
             'previous' => null,
             'next' => null,
-            'series_id' => 1
+            'series_id' => 1,
+            'user_id' => 1,
         ];
 
         $data = array_merge($defaultData, $overrides);
@@ -46,7 +48,8 @@ class defaultVideoHelper {
             'published_at' => Carbon::now()->toDateTimeString(),
             'previous' => null,
             'next' => null,
-            'series_id' => 1
+            'series_id' => 1,
+            'user_id' => 3,
         ];
 
         $data = array_merge($defaultData, $overrides);

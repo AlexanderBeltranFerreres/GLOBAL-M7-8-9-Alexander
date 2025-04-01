@@ -11,6 +11,7 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Team;
+use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
 use Tests\Unit\HelpersTest;
 
@@ -32,6 +33,7 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
     use HasRoles;
+    use HasPermissions;
 
     /**
      * The attributes that are mass assignable.
@@ -75,6 +77,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'super_admin' => 'boolean',
     ];
 
     /**
@@ -87,7 +90,7 @@ class User extends Authenticatable
 
     public function isSuperAdmin(): bool
     {
-        return $this->super_admin === true;
+        return (bool) $this->super_admin;
 
     }
 

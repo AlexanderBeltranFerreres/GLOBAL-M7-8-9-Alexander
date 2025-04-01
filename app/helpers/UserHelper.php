@@ -117,13 +117,16 @@ function define_gates()
 
 function create_permissions()
 {
+    //Borrem cache de permisos
+    app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
     $permissions = [
         'manage users',
         'manage videos'
     ];
 
     foreach ($permissions as $permission) {
-        Permission::firstOrCreate(['name' => $permission]);
+        Permission::firstOrCreate(['name' => $permission,  'guard_name' => 'web']);
     }
 
     $roles = [
@@ -133,7 +136,7 @@ function create_permissions()
     ];
 
     foreach ($roles as $role => $perms) {
-        $roleInstance = Role::firstOrCreate(['name' => $role]);
-        $roleInstance->syncPermissions($perms);
+        $roleInstance = Role::firstOrCreate(['name' => $role, 'guard_name' => 'web']);
+        $roleInstance->syncPermissions($perms); //Guardem els permisos
     }
 }
