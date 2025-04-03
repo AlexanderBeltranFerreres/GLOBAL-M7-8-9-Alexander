@@ -15,7 +15,6 @@ class UsersManageController extends Controller {
         return UsersManageController::class;
     }
 
-    // Llista tots els usuaris
     public function index()
     {
         if (!auth()->user()->can('manage-users')) {
@@ -26,7 +25,6 @@ class UsersManageController extends Controller {
         return view('users.index', compact('users'));
     }
 
-    // Mostra el formulari de creació d'usuari
     public function create()
     {
         if (!auth()->user()->can('manage-users')) {
@@ -35,7 +33,6 @@ class UsersManageController extends Controller {
         return view('users.create');
     }
 
-    // Guarda un nou usuari
     public function store(Request $request)
     {
         $request->validate([
@@ -55,7 +52,6 @@ class UsersManageController extends Controller {
         return redirect()->route('users.index')->with('success', 'Usuari creat correctament.');
     }
 
-    // Mostra el formulari d'edició d'un usuari
     public function edit(User $user)
     {
         if (!auth()->user()->can('manage-users')) {
@@ -64,7 +60,6 @@ class UsersManageController extends Controller {
         return view('users.edit', compact('user'));
     }
 
-    // Actualitza un usuari
     public function update(Request $request, User $user)
     {
         $request->validate([
@@ -87,23 +82,16 @@ class UsersManageController extends Controller {
         return redirect()->route('users.index')->with('success', 'Usuari actualitzat correctament.');
     }
 
-    // Elimina un usuari i reassigna els seus vídeos a un usuari per defecte
     public function destroy(User $user)
     {
-        if ($user->super_admin) {
-            return redirect()->route('users.index')->with('error', 'No pots eliminar un superadministrador.');
+        if (!auth()->user()->can('manage-users')) {
+            abort(403, 'No tens permisos per gestionar usuaris.');
         }
 
-        $defaultUser = User::where('super_admin', true)->first();
-
-        if ($defaultUser) {
-            Video::where('user_id', $user->id)->update(['user_id' => $defaultUser->id]);
-        } else {
-            Video::where('user_id', $user->id)->delete();
-        }
+        Video::where('user_id', $user->id)->delete();
 
         $user->delete();
 
-        return redirect()->route('users.index')->with('success', 'Usuari eliminat correctament.');
+        return redirect()->route('users.index')->with('success', 'Usuari i vídeos eliminats correctament.');
     }
 }
