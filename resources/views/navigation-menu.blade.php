@@ -39,7 +39,7 @@
                                 <div class="w-60">
                                     <!-- Team Management -->
                                     <div class="block px-4 py-2 text-xs text-gray-400">
-                                        {{ __('Manage Team') }}
+                                        {{ __('manage Team') }}
                                     </div>
 
                                     <!-- Team Settings -->
@@ -95,7 +95,7 @@
                         <x-slot name="content">
                             <!-- Account Management -->
                             <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Manage Account') }}
+                                {{ __('manage Account') }}
                             </div>
 
                             <x-dropdown-link href="{{ route('profile.show') }}">
@@ -186,7 +186,7 @@
                     <div class="border-t border-gray-200"></div>
 
                     <div class="block px-4 py-2 text-xs text-gray-400">
-                        {{ __('Manage Team') }}
+                        {{ __('manage Team') }}
                     </div>
 
                     <!-- Team Settings -->

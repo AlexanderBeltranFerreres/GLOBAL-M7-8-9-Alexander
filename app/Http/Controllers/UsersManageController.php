@@ -10,88 +10,67 @@ use Illuminate\Support\Facades\Hash;
 
 class UsersManageController extends Controller {
 
-    public function testedBy()
-    {
-        return UsersManageController::class;
-    }
-
     public function index()
     {
-        if (!auth()->user()->can('manage-users')) {
-            abort(403, 'No tens permisos per gestionar usuaris.');
-        }
-
         $users = User::all();
-        return view('users.index', compact('users'));
+        return view('users.manage.index', compact('users'));
     }
 
-    public function create()
-    {
-        if (!auth()->user()->can('manage-users')) {
-            abort(403, 'No tens permisos per gestionar usuaris.');
-        }
-        return view('users.create');
-    }
 
     public function store(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-            'super_admin' => 'boolean'
+            'password' => 'required|string|min:8',
         ]);
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'super_admin' => $request->super_admin ?? false
+            'password' => bcrypt($request->password),
         ]);
 
-        return redirect()->route('users.index')->with('success', 'Usuari creat correctament.');
+        return redirect()->route('users.manage.index')->with('success', 'Usuari creat correctament.');
     }
 
     public function edit(User $user)
     {
-        if (!auth()->user()->can('manage-users')) {
-            abort(403, 'No tens permisos per gestionar usuaris.');
-        }
-        return view('users.edit', compact('user'));
+        return view('users.manage.edit', compact('user'));
     }
-
     public function update(Request $request, User $user)
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-            'password' => 'nullable|string|min:8|confirmed',
-            'super_admin' => 'boolean'
         ]);
 
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'super_admin' => $request->super_admin ?? false,
-        ]);
+        $user->update($request->only(['name', 'email']));
 
-        if ($request->filled('password')) {
-            $user->update(['password' => Hash::make($request->password)]);
-        }
-
-        return redirect()->route('users.index')->with('success', 'Usuari actualitzat correctament.');
+        return redirect()->route('users.manage.index')->with('success', 'Usuari actualitzat correctament.');
     }
-
-    public function destroy(User $user)
+    public function testedBy()
     {
-        if (!auth()->user()->can('manage-users')) {
-            abort(403, 'No tens permisos per gestionar usuaris.');
-        }
-
-        Video::where('user_id', $user->id)->delete();
-
+        return UserManageTest::class;
+    }
+    public function delete(User $user)
+    {
         $user->delete();
-
-        return redirect()->route('users.index')->with('success', 'Usuari i vídeos eliminats correctament.');
+        return redirect()->route('users.manage.index')->with('success', 'Usuari eliminat correctament.');
+    }
+    public function destroy($id)
+    {
+        $user = User::find($id);
+        if(!$user){
+            return response()->json([
+                'message' => 'User not found'
+            ], 404);
+        }
+        $user->delete();
+        return redirect()->route('users.manage.index')->with('success', 'Usuari eliminat permanentment.');
+    }
+    public function create()
+    {
+        return view('users.manage.create');
     }
 }

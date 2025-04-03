@@ -48,11 +48,11 @@
     @if ($this->user->tokens->isNotEmpty())
         <x-section-border />
 
-        <!-- Manage API Tokens -->
+        <!-- manage API Tokens -->
         <div class="mt-10 sm:mt-0">
             <x-action-section>
                 <x-slot name="title">
-                    {{ __('Manage API Tokens') }}
+                    {{ __('manage API Tokens') }}
                 </x-slot>
 
                 <x-slot name="description">

@@ -122,6 +122,8 @@
     <ul class="navbar-nav">
         <li><a href="{{ route('videos.manage.index') }}">Gestió de Vídeos</a></li>
         <li><a href="{{ route('videos.index') }}">Inici</a></li>
+        <li><a href="{{route('users.index')}}">Usuaris</a></li>
+        <li><a href="{{route('users.manage.index')}}">Gestió d'Usuaris</a></li>
     </ul>
 </nav>
 

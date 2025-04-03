@@ -116,7 +116,7 @@
     @if ($team->users->isNotEmpty())
         <x-section-border />
 
-        <!-- Manage Team Members -->
+        <!-- manage Team Members -->
         <div class="mt-10 sm:mt-0">
             <x-action-section>
                 <x-slot name="title">
@@ -138,7 +138,7 @@
                                 </div>
 
                                 <div class="flex items-center">
-                                    <!-- Manage Team Member Role -->
+                                    <!-- manage Team Member Role -->
                                     @if (Gate::check('updateTeamMember', $team) && Laravel\Jetstream\Jetstream::hasRoles())
                                         <button class="ms-2 text-sm text-gray-400 underline" wire:click="manageRole('{{ $user->id }}')">
                                             {{ Laravel\Jetstream\Jetstream::findRole($user->membership->role)->name }}
@@ -173,7 +173,7 @@
     <!-- Role Management Modal -->
     <x-dialog-modal wire:model.live="currentlyManagingRole">
         <x-slot name="title">
-            {{ __('Manage Role') }}
+            {{ __('manage Role') }}
         </x-slot>
 
         <x-slot name="content">

@@ -7,14 +7,25 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
+        $query = User::query();
+
+        if ($request->has('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%')
+                ->orWhere('email', 'like', '%' . $request->search . '%');
+        }
+
+        $users = $query->paginate(10);
         return view('users.index', compact('users'));
     }
 
-    public function show(User $user)
+    /**
+     * Display the specified resource.
+     */
+    public function show($id)
     {
+        $user = User::where('id', $id)->with('videos')->firstOrFail();
         return view('users.show', compact('user'));
     }
 }

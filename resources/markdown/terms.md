@@ -187,7 +187,67 @@ Edit this file to define the terms of service for your application.
     - He creat les rutes per al CRUD de vídeos amb el middleware corresponent.
     - Les rutes per al CRUD només apareixen per usuaris logejats, mentre que la ruta per veure tots els vídeos és pública.
 
-7. **Actualització de la Guia:**
-    - He actualitzat la guia del projecte a `resources/markdown/terms` per incloure els canvis realitzats durant aquest sprint.
+## SPRINT 5
 
----
+### Què s'ha fet al 5è Sprint?
+
+#### Correccions del SPRINT 4:
+- Es van corregir els errors trobats durant el quart sprint, incloent-hi els errors de rutes i accessos incorrectes. Els tests s'han actualitzat per garantir que els usuaris amb permisos puguin accedir-hi correctament.
+
+#### Noves funcionalitats:
+
+1. **Afegir el camp `user_id` a la taula de vídeos:**
+    - He afegit el camp `user_id` a la taula de vídeos per emmagatzemar qui ha creat el vídeo. Això es reflecteix en el model, controlador i helpers.
+    - He modificat la migració i l'seeder per incloure aquest camp.
+
+2. **Controlador `UsersManageController`:**
+    - He creat el controlador `UsersManageController` amb les funcions següents:
+        - `index()`: Per veure la llista d'usuaris.
+        - `store()`: Per crear un nou usuari.
+        - `edit()`: Per editar un usuari.
+        - `update()`: Per actualitzar un usuari.
+        - `destroy()`: Per eliminar un usuari.
+
+3. **Controlador `UsersController`:**
+    - He afegit les funcions `index()` i `show()` al `UsersController` per veure tots els usuaris i mostrar el detall d'un usuari.
+
+4. **Vistes per al CRUD d'usuaris:**
+    - He creat les següents vistes per gestionar els usuaris, dins de la carpeta `resources/views/users/manage`:
+        - **`index.blade.php`**: Taula per mostrar tots els usuaris.
+        - **`create.blade.php`**: Formulari per afegir usuaris (amb l'atribut `data-qa` per facilitar els tests).
+        - **`edit.blade.php`**: Formulari per editar usuaris existents.
+        - **`delete.blade.php`**: Confirmació per eliminar usuaris.
+
+5. **Vistes `create.blade.php` i `edit.blade.php`:**
+    - He creat les vistes per afegir i editar usuaris, amb un formulari que fa servir el mètode `POST` i `PUT`, respectivament.
+
+6. **Testos de Controlador i Permisos:**
+    - He creat els testos per garantir que només els usuaris amb permisos adequats poden accedir als CRUD d'usuaris.
+
+7. **Rutes i Middleware:**
+    - He creat les rutes per al CRUD d'usuaris amb el middleware corresponent. Els usuaris només podran accedir-hi si estan autenticats.
+
+8. **Markdown per al Sprint:**
+    - He afegit una descripció completa de les tasques realitzades al fitxer `resources/markdown/terms`.
+
+9. **Comprovació amb Larastan:**
+    - He realitzat una comprovació del codi amb Larastan per assegurar-me que no hi ha errors.
+
+#### Tests Afegits:
+
+1. **Testos per al controlador `UsersManageController`:**
+    - He creat els següents tests:
+        - `user_with_permissions_can_see_add_users`
+        - `user_without_users_manage_create_cannot_see_add_users`
+        - `user_with_permissions_can_store_users`
+        - `user_without_permissions_cannot_store_users`
+        - `user_with_permissions_can_destroy_users`
+        - `user_without_permissions_cannot_destroy_users`
+        - `user_with_permissions_can_see_edit_users`
+        - `user_without_permissions_cannot_see_edit_users`
+        - `user_with_permissions_can_update_users`
+        - `user_without_permissions_cannot_update_users`
+        - `user_with_permissions_can_manage_users`
+        - `regular_users_cannot_manage_users`
+        - `guest_users_cannot_manage_users`
+        - `superadmins_can_manage_users`
