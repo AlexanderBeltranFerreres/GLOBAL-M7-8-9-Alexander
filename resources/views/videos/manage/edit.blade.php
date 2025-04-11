@@ -44,76 +44,89 @@
         </form>
     </div>
 
-    <!-- Estils CSS -->
-    <style>
+</x-layout>
+<!-- Estils CSS -->
+<style>
+    .container {
+        max-width: 700px;
+        margin: auto;
+        padding: 3rem;
+        background-color: #fffefc;
+        border-radius: 1rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    }
+
+    h1 {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #4b2e2e;
+        margin-bottom: 2rem;
+        text-align: center;
+        font-family: 'Georgia', serif;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #3e3e3e;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-control {
+        width: 100%;
+        font-size: 0.95rem;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid #ddd;
+        background-color: #fffaf3;
+        transition: all 0.2s ease-in-out;
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
+    }
+
+    .form-control:focus {
+        border-color: #f4a261;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(244, 162, 97, 0.25);
+    }
+
+    .btn-edit-video {
+        display: inline-block;
+        background-color: #ffb703;
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.75rem;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        letter-spacing: 0.5px;
+    }
+
+    .btn-edit-video:hover {
+        background-color: #f4a261;
+        transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
         .container {
-            padding: 40px;
-            background-color: #f8f7f4;
-            border-radius: 12px;
-            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            font-size: 28px;
-            font-weight: 700;
-            color: #5a3e36;
-            margin-bottom: 20px;
-            text-align: center;
-            font-family: 'Georgia', serif;
-        }
-
-        .form-group label {
-            font-weight: 600;
-            font-size: 14px;
-            color: #3e3e3e;
-            margin-bottom: 8px;
-        }
-
-        .form-control {
-            font-size: 14px;
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            transition: border-color 0.3s ease;
-            background-color: #fff3e0;
-        }
-
-        .form-control:focus {
-            border-color: #ff7043;
+            padding: 2rem;
         }
 
         .btn-edit-video {
-            background-color: #ffcc00;
-            color: white;
-            font-size: 16px;
-            font-weight: 700;
-            padding: 12px 20px;
-            border-radius: 8px;
-            border: none;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, background-color 0.3s ease;
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 0.95rem;
         }
 
-        .btn-edit-video:hover {
-            background-color: #ffb300;
-            transform: scale(1.05);
+        .form-control {
+            font-size: 0.85rem;
         }
-
-        /* Estils responsius */
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-
-            .btn-edit-video {
-                font-size: 14px;
-                padding: 10px 15px;
-            }
-
-            .form-control {
-                font-size: 12px;
-                padding: 10px;
-            }
-        }
-    </style>
-</x-layout>
+    }
+</style>

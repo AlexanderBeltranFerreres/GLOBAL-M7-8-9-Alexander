@@ -23,6 +23,11 @@ class Video extends Model
         'series_id',
     ];
 
+    public function serie()
+    {
+        return $this->belongsTo(Serie::class, 'series_id');
+    }
+
     /**
      * @var list<string>
      */
@@ -83,4 +88,6 @@ class Video extends Model
     {
         return $this->belongsTo(self::class, 'next');
     }
+
+
 }

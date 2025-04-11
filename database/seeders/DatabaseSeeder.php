@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\helpers\defaultVideoHelper;
+use App\helpers\seriesHelper;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -44,6 +45,10 @@ class DatabaseSeeder extends Seeder
         DefaultVideoHelper::crearVideoDefault();
         DefaultVideoHelper::crearVideoDefault2();
         DefaultVideoHelper::crearVideoDefault3();
+
+        seriesHelper::createDefaultSerie1();
+        seriesHelper::createDefaultSerie2();
+        seriesHelper::createDefaultSerie3();
 
         define_gates();
     }

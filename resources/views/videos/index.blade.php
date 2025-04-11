@@ -19,107 +19,114 @@
         </div>
     </div>
 
-    <!-- Estils CSS -->
-    <style>
-        .container {
-            padding: 60px;
-            background-color: #f2f2f2;
+</x-layout>
+<!-- Estils CSS -->
+<style>
+    body {
+        font-family: 'Inter', 'Helvetica Neue', sans-serif;
+        background-color: #f5f5f5;
+        color: #1f1f1f;
+    }
+
+    .container {
+        padding: 4rem 2rem;
+        background-color: #f9f9f9;
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 2rem;
+    }
+
+    .col-lg-3,
+    .col-md-4,
+    .col-sm-6 {
+        flex: 1 1 calc(25% - 2rem);
+    }
+
+    .card {
+        background: #ffffff;
+        border-radius: 1.25rem;
+        overflow: hidden;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.08);
+    }
+
+    .card-img-top {
+        height: 200px;
+        width: 100%;
+        object-fit: cover;
+        border-bottom: 1px solid #e5e7eb;
+        pointer-events: none;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .card-title {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #111827;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-text {
+        font-size: 0.95rem;
+        color: #6b7280;
+        line-height: 1.5;
+        margin-bottom: 1rem;
+    }
+
+    .btn-outline-renaissance {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        border: 2px solid #c5a880;
+        color: #c5a880;
+        border-radius: 9999px;
+        background-color: transparent;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .btn-outline-renaissance:hover {
+        background-color: #c5a880;
+        color: #ffffff;
+    }
+
+    /* Responsiu */
+    @media (max-width: 1200px) {
+        .col-lg-3 {
+            flex: 1 1 calc(33.333% - 2rem);
+        }
+    }
+
+    @media (max-width: 992px) {
+        .col-md-4 {
+            flex: 1 1 calc(50% - 2rem);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .col-sm-6 {
+            flex: 1 1 100%;
         }
 
         .card-img-top {
-            height: 180px;
-            object-fit: cover;
-            border-radius: 7px;
-            cursor: pointer;
+            height: 160px;
         }
-
-        .card {
-            border: none;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background: linear-gradient(145deg, #ffffff, #f7f7f7);
-        }
-
-        .card:hover {
-            transform: scale(1.05);
-            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .card-body {
-            padding: 15px;
-        }
-
-        .card-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #3b3b3b;
-            margin-bottom: 8px;
-        }
-
-        .card-text {
-            font-size: 13px;
-            color: #737373;
-        }
-
-        .btn-outline-renaissance {
-            border-color: #8c4a7d;
-            color: #8c4a7d;
-            font-size: 13px;
-            text-transform: uppercase;
-            border-radius: 20px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .btn-outline-renaissance:hover {
-            background-color: #8c4a7d;
-            color: #fff;
-        }
-
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
-
-        /* Estil responsiu */
-        @media (max-width: 1200px) {
-            .col-lg-3 {
-                flex: 1 1 48%;
-            }
-        }
-
-        @media (max-width: 992px) {
-            .col-md-4 {
-                flex: 1 1 48%;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .col-sm-6 {
-                flex: 1 1 48%;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .col-sm-6 {
-                flex: 1 1 100%;
-            }
-
-            .card-img-top {
-                height: 150px;
-            }
-
-            .card-title {
-                font-size: 15px;
-            }
-
-            .card-text {
-                font-size: 12px;
-            }
-        }
-    </style>
-</x-layout>
+    }
+</style>

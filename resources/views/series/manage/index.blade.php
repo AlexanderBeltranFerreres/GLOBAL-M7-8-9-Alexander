@@ -1,37 +1,40 @@
 <x-layout>
     <div class="container">
-        <h1>Gestió d'Usuaris</h1>
+        <h1>Gestió de Sèries</h1>
+
+        <!-- Botó destacat per crear sèrie -->
+        <a href="{{ route('series.manage.create') }}" class="btn btn-create-series mb-3" data-qa="create-series">Crear Sèrie</a>
 
         @if(session('success'))
             <div class="alert alert-success mt-3">{{ session('success') }}</div>
         @endif
 
-        <!-- Botó destacat per crear usuari -->
-        <a href="{{ route('users.manage.create') }}" class="btn btn-create-user mb-3">Crear Usuari</a>
-
-        <!-- Taula que ocupa tota l'amplada disponible -->
+        <!-- Taula de sèries -->
         <div class="table-responsive">
             <table class="table table-striped mt-3">
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nom</th>
-                    <th>Email</th>
+                    <th>Títol</th>
+                    <th>Descripció</th>
+                    <th>Data de Publicació</th>
                     <th>Accions</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($users as $user)
+                @foreach($series as $serie)
                     <tr>
-                        <td>{{ $user->id }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
+                        <td>{{ $serie->id }}</td>
+                        <td>{{ $serie->title }}</td>
+                        <td>{{ \Str::limit($serie->description, 50) }}</td>
+                        <td>{{ $serie->published_at ? \Carbon\Carbon::parse($serie->published_at)->format('d-m-Y') : 'No publicat' }}</td>
                         <td>
-                            <a href="{{ route('users.manage.edit', $user) }}" class="btn btn-warning btn-sm">Editar</a>
-                            <form action="{{ route('users.manage.destroy', $user) }}" method="POST" style="display:inline;">
+                            <a href="{{ route('series.manage.edit', $serie) }}" class="btn btn-warning btn-sm" data-qa="edit-series-{{ $serie->id }}">Editar</a>
+
+                            <form action="{{ route('series.manage.destroy', $serie) }}" method="POST" style="display:inline;" data-qa="delete-series-{{ $serie->id }}">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Estàs segur?')">Eliminar</button>
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Estàs segur que vols eliminar aquesta sèrie? Els vídeos associats també seran desassignats.')">Eliminar</button>
                             </form>
                         </td>
                     </tr>
@@ -57,21 +60,21 @@
         margin-bottom: 20px;
     }
 
-    /* Estil per al botó de crear usuari */
-    .btn-create-user {
-        background-color: #007bff;
+    .btn-create-series {
+        background-color: #28a745;
         color: white;
         font-size: 16px;
         font-weight: 600;
         padding: 12px 20px;
         border-radius: 5px;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease, background-color 0.3s ease;
+        transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .btn-create-user:hover {
-        background-color: #0056b3;
+    .btn-create-series:hover {
+        background-color: #218838;
         transform: scale(1.05);
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
     }
 
     .alert {
@@ -79,20 +82,22 @@
         padding: 10px;
         background-color: #d4edda;
         color: #155724;
+        border-radius: 5px;
     }
 
-    /* Taula i estil de les cel·les */
     .table {
         background-color: white;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         font-size: 14px;
+        margin-top: 20px;
     }
 
     .table th {
         background-color: #0069d9;
         color: white;
         font-weight: 600;
+        padding: 12px;
     }
 
     .table td {
@@ -137,7 +142,6 @@
         background-color: #c82333;
     }
 
-    /* Estil per fer la taula més responsive */
     .table-responsive {
         width: 100%;
         overflow-x: auto;
@@ -147,10 +151,38 @@
         .table {
             font-size: 12px;
         }
-        .btn-primary, .btn-warning, .btn-danger {
+
+        .btn-create-series, .btn-warning, .btn-danger {
             font-size: 12px;
             padding: 6px 12px;
         }
+
+        .table td {
+            padding: 10px 12px;
+        }
+
+        h1 {
+            font-size: 20px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        h1 {
+            font-size: 18px;
+        }
+
+        .table td {
+            padding: 8px 10px;
+        }
+
+        .btn-create-series {
+            font-size: 14px;
+            padding: 8px 16px;
+        }
+
+        .btn-warning, .btn-danger {
+            font-size: 10px;
+            padding: 5px 10px;
+        }
     }
 </style>
-

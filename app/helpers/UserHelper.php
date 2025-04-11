@@ -122,7 +122,8 @@ function create_permissions()
 
     $permissions = [
         'manage users',
-        'manage videos'
+        'manage videos',
+        'manage series',
     ];
 
     foreach ($permissions as $permission) {
@@ -139,4 +140,6 @@ function create_permissions()
         $roleInstance = Role::firstOrCreate(['name' => $role, 'guard_name' => 'web']);
         $roleInstance->syncPermissions($perms); //Guardem els permisos
     }
+    $superAdmin = Role::firstOrCreate(['name' => 'super_admin']);
+    $superAdmin->syncPermissions(Permission::all());
 }

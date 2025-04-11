@@ -21,6 +21,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Gate::define('manage-series', function (User $user) {
+            return $user->hasRole('super_admin');
+        });
+
         // Definir les portes per a la gestió de vídeos
         Gate::define('create-videos', function (User $user) {
             return $user->hasPermissionTo('create videos');
@@ -41,7 +45,8 @@ class AppServiceProvider extends ServiceProvider
 
         // Porta per a la gestió de vídeos, accessible per video managers i super admins
         Gate::define('manage-videos', function (User $user) {
-            return $user->hasRole('video_manager') || $user->isSuperAdmin();
+            return $user->hasRole('video_manager') || $user->isSuperAdmin() || $user->hasRole('regular');
         });
+
     }
 }

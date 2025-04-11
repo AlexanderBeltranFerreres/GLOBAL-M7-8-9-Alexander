@@ -37,7 +37,8 @@
             "app/helpers/defaultUserHelper.php",
             "app/helpers/defaultTeacherHelper.php",
             "app/helpers/defaultVideoHelper.php",
-            "app/helpers/UserHelper.php"
+            "app/helpers/UserHelper.php",
+            "app/helpers/seriesHelper.php"
         ]
     },
     "autoload-dev": {

@@ -251,3 +251,103 @@ Edit this file to define the terms of service for your application.
         - `regular_users_cannot_manage_users`
         - `guest_users_cannot_manage_users`
         - `superadmins_can_manage_users`
+
+## SPRINT 6
+
+### Què s'ha fet al 6è Sprint?
+
+#### Correccions del SPRINT 5:
+- S'han corregit diversos errors detectats durant el cinquè sprint.
+- En cas que al modificar el codi fallés algun test anterior, s'ha corregit el test o el codi corresponent.
+
+#### Noves funcionalitats:
+
+1. **Assignar vídeos a sèries:**
+    - S'ha modificat el model `Video` per afegir la relació `serie()` (belongsTo).
+    - A les vistes i al controlador s'ha afegit la lògica per permetre seleccionar una sèrie quan es crea un vídeo.
+
+2. **Permetre als usuaris regulars crear vídeos:**
+    - Al `VideoController` s'han afegit les funcions CRUD perquè els usuaris regulars puguin gestionar els seus vídeos.
+    - A la vista de vídeos s'han afegit els botons del CRUD segons el rol de l'usuari.
+
+3. **Creació de la migració de la taula `series`:**
+    - Camps inclosos: `id`, `title`, `description`, `image (nullable)`, `user_name`, `user_photo_url (nullable)`, `published_at (nullable)`.
+
+4. **Creació del model `Serie`:**
+    - Funcions creades:
+        - `testedBy()`
+        - `videos()` → relació 1:N amb vídeos
+        - `getFormattedCreatedAtAttribute()`
+        - `getFormattedForHumansCreatedAtAttribute()`
+        - `getCreatedAtTimestampAttribute()`
+
+5. **Creació del controlador `SeriesManageController`:**
+    - Funcions:
+        - `testedBy`
+        - `index`
+        - `store`
+        - `edit`
+        - `update`
+        - `delete`
+        - `destroy`
+
+6. **Creació del controlador `SeriesController`:**
+    - Funcions:
+        - `index` → mostra totes les sèries
+        - `show` → mostra els vídeos d'una sèrie
+
+7. **Creació de la funció helper `create_series()`:**
+    - Crea 3 sèries de prova amb les dades necessàries.
+
+8. **Creació de vistes Blade per al CRUD de sèries:**
+    - `resources/views/series/manage/index.blade.php`
+    - `resources/views/series/manage/create.blade.php`
+    - `resources/views/series/manage/edit.blade.php`
+    - `resources/views/series/manage/delete.blade.php`
+
+9. **Detalls de les vistes:**
+    - `index.blade.php`: taula amb totes les sèries.
+    - `create.blade.php`: formulari per crear una nova sèrie amb atributs `data-qa`.
+    - `edit.blade.php`: formulari per modificar una sèrie.
+    - `delete.blade.php`: confirmació per eliminar la sèrie i desassignar els vídeos associats (opcional).
+
+10. **Vista pública de sèries:**
+    - `resources/views/series/index.blade.php` → es poden buscar sèries i veure'n el contingut amb `show`.
+
+11. **Assignació de permisos i rutes:**
+    - S'han creat els permisos de gestió de sèries i s'han assignat als superadmins.
+    - Les rutes de `series/manage` (CRUD) i de `series/index` i `series/show` només són visibles per a usuaris logejats.
+
+12. **Tests creats:**
+
+- **`tests/Unit/SerieTest.php`:**
+    - `serie_have_videos()`
+
+- **`tests/Feature/SeriesManageControllerTest.php`:**
+    - `loginAsVideoManager`
+    - `loginAsSuperAdmin`
+    - `loginAsRegularUser`
+    - `user_with_permissions_can_see_add_series`
+    - `user_without_series_manage_create_cannot_see_add_series`
+    - `user_with_permissions_can_store_series`
+    - `user_without_permissions_cannot_store_series`
+    - `user_with_permissions_can_destroy_series`
+    - `user_without_permissions_cannot_destroy_series`
+    - `user_with_permissions_can_see_edit_series`
+    - `user_without_permissions_cannot_see_edit_series`
+    - `user_with_permissions_can_update_series`
+    - `user_without_permissions_cannot_update_series`
+    - `user_with_permissions_can_manage_series`
+    - `regular_users_cannot_manage_series`
+    - `guest_users_cannot_manage_series`
+    - `videomanagers_can_manage_series`
+    - `superadmins_can_manage_series`
+
+13. **Navegació entre pàgines:**
+    - Es pot navegar entre index, show i CRUD de manera fluida.
+
+14. **Afegit al markdown:**
+    - S’ha documentat aquest sprint al fitxer `resources/markdown/terms.md`.
+
+15. **Validació amb Larastan:**
+    - Tots els nous fitxers han estat validades amb Larastan per assegurar la qualitat del codi.

@@ -43,96 +43,113 @@
         </form>
     </div>
 
-    <!-- Estils CSS -->
-    <style>
+</x-layout>
+<!-- Estils CSS -->
+<style>
+    .container {
+        padding: 60px;
+        background-color: #fdfaf6;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        max-width: 800px;
+        margin: auto;
+    }
+
+    h1 {
+        font-size: 30px;
+        font-weight: 800;
+        color: #4a2c2a;
+        margin-bottom: 40px;
+        text-align: center;
+        font-family: 'Georgia', serif;
+        letter-spacing: 0.5px;
+    }
+
+    .form-group {
+        margin-bottom: 24px;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: 600;
+        font-size: 15px;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .form-control {
+        width: 100%;
+        font-size: 15px;
+        padding: 12px 14px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        background-color: #fff8f2;
+        transition: all 0.3s ease;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .form-control:focus {
+        border-color: #d88b61;
+        background-color: #fffefc;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(255, 138, 101, 0.2);
+    }
+
+    .btn-create-video {
+        background-color: #d88b61;
+        color: white;
+        font-size: 16px;
+        font-weight: 700;
+        padding: 14px 24px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        display: block;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .btn-create-video:hover {
+        background-color: #bb6b44;
+        transform: scale(1.04);
+    }
+
+    .btn-success {
+        background-color: #8c4a7d;
+        color: white;
+        font-weight: 700;
+        padding: 12px 20px;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+        border: none;
+    }
+
+    .btn-success:hover {
+        background-color: #6b2c55;
+    }
+
+    @media (max-width: 768px) {
         .container {
-            padding: 60px;
-            background-color: #f9f9f9;
-            border-radius: 12px;
-            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+            padding: 24px;
         }
 
         h1 {
-            font-size: 26px;
-            font-weight: 700;
-            color: #3e3e3e;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        /* Estil per als inputs i formularis */
-        .form-group {
-            margin-bottom: 25px;
+            font-size: 24px;
         }
 
         .form-control {
-            font-size: 15px;
-            padding: 12px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            background-color: #fff;
-            transition: border-color 0.3s ease, background-color 0.3s ease;
+            font-size: 14px;
+            padding: 10px 12px;
         }
 
-        .form-control:focus {
-            border-color: #8c4a7d;
-            background-color: #fff;
-        }
-
-        /* Estil per al botó de crear vídeo */
-        .btn-create-video {
-            background-color: #8c4a7d;
-            color: white;
-            font-size: 16px;
-            font-weight: 700;
-            padding: 14px 22px;
-            border-radius: 8px;
-            border: none;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
-
-        .btn-create-video:hover {
-            background-color: #6b2c55;
-            transform: scale(1.05);
-        }
-
-        /* Estils per la taula i elements del formulari */
-        .form-group label {
-            font-weight: 600;
-            font-size: 15px;
-            color: #3e3e3e;
-            margin-bottom: 10px;
-        }
-
+        .btn-create-video,
         .btn-success {
-            background-color: #8c4a7d;
-            color: white;
-            font-weight: 700;
-            padding: 12px 20px;
-            border-radius: 8px;
-            transition: background-color 0.3s ease;
+            font-size: 14px;
+            padding: 10px 16px;
         }
+    }
+</style>
 
-        .btn-success:hover {
-            background-color: #6b2c55;
-        }
-
-        /* Mida màxima per a dispositius més petits */
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-            }
-
-            .btn-create-video, .btn-success {
-                font-size: 14px;
-                padding: 10px 15px;
-            }
-
-            .form-control {
-                font-size: 13px;
-                padding: 10px;
-            }
-        }
-    </style>
-</x-layout>

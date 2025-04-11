@@ -50,115 +50,138 @@
         </div>
     </div>
 
-    <!-- Estils CSS -->
-    <style>
-        .container {
-            padding: 40px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-        }
+</x-layout>
+<!-- Estils CSS -->
+<style>
+    .container {
+        padding: 3rem;
+        background-color: #fefefe;
+        border-radius: 1rem;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    }
 
-        h1 {
-            font-size: 24px;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 20px;
-        }
+    h1 {
+        font-size: 1.75rem;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 2rem;
+    }
 
-        /* Estil per al botó de crear vídeo */
-        .btn-create-video {
-            background-color: #28a745;
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            padding: 12px 20px;
-            border-radius: 5px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
+    .btn-create-video {
+        background-color: #c5a880;
+        color: white;
+        font-size: 0.95rem;
+        font-weight: 500;
+        padding: 0.75rem 1.5rem;
+        border-radius: 2rem;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
 
-        .btn-create-video:hover {
-            background-color: #218838;
-            transform: scale(1.05);
-        }
+    .btn-create-video:hover {
+        background-color: #b8946c;
+        transform: scale(1.05);
+    }
 
-        .alert {
-            font-size: 14px;
-            padding: 10px;
-            background-color: #d4edda;
-            color: #155724;
-        }
+    .alert {
+        font-size: 0.875rem;
+        padding: 0.75rem 1.25rem;
+        background-color: #e6f4ea;
+        color: #276749;
+        border-left: 5px solid #38a169;
+        border-radius: 0.375rem;
+    }
 
-        /* Taula i estil de les cel·les */
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.95rem;
+        background-color: white;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+    }
+
+    .table th {
+        background-color: #2d2d2d;
+        color: #f5f5f5;
+        font-weight: 600;
+        text-align: left;
+        padding: 1rem;
+        white-space: nowrap;
+    }
+
+    .table td {
+        padding: 1rem;
+        color: #4b5563;
+        vertical-align: middle;
+        border-top: 1px solid #f3f4f6;
+        white-space: nowrap;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #fafafa;
+    }
+
+    .table td a {
+        color: #8c4a7d;
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .table td a:hover {
+        text-decoration: underline;
+    }
+
+    .btn-warning, .btn-danger {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        padding: 0.5rem 0.75rem;
+        border-radius: 1.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .btn-warning {
+        background-color: #f0ad4e;
+        color: white;
+    }
+
+    .btn-warning:hover {
+        background-color: #d08936;
+    }
+
+    .btn-danger {
+        background-color: #e3342f;
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background-color: #cc1f1a;
+    }
+
+    @media (max-width: 768px) {
         .table {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            font-size: 14px;
+            font-size: 0.85rem;
         }
 
-        .table th {
-            background-color: #0069d9;
-            color: white;
-            font-weight: 600;
-        }
-
-        .table td {
-            padding: 12px 15px;
-        }
-
-        .table-striped tbody tr:nth-of-type(odd) {
-            background-color: #f9f9f9;
-        }
-
-        .table td a {
-            color: #0069d9;
-            text-decoration: none;
-        }
-
-        .table td a:hover {
-            text-decoration: underline;
+        .btn-create-video {
+            width: 100%;
+            display: block;
+            margin-bottom: 1rem;
         }
 
         .btn-warning, .btn-danger {
-            font-size: 12px;
-            padding: 6px 12px;
-            border-radius: 4px;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn-warning {
-            background-color: #ffc107;
-            color: white;
-        }
-
-        .btn-warning:hover {
-            background-color: #e0a800;
-        }
-
-        .btn-danger {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background-color: #c82333;
-        }
-
-        /* Estil per fer la taula més responsive */
-        .table-responsive {
+            display: block;
             width: 100%;
-            overflow-x: auto;
+            margin-bottom: 0.5rem;
         }
-
-        @media (max-width: 768px) {
-            .table {
-                font-size: 12px;
-            }
-            .btn-primary, .btn-warning, .btn-danger {
-                font-size: 12px;
-                padding: 6px 12px;
-            }
-        }
-    </style>
-</x-layout>
+    }
+</style>

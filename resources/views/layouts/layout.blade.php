@@ -124,6 +124,8 @@
         <li><a href="{{ route('videos.index') }}">Inici</a></li>
         <li><a href="{{route('users.index')}}">Usuaris</a></li>
         <li><a href="{{route('users.manage.index')}}">Gestió d'Usuaris</a></li>
+        <li><a href="{{route('series.index')}}">Series</a></li>
+        <li><a href="{{route('series.manage.index')}}">Gestió de Series</a></li>
     </ul>
 </nav>
 
