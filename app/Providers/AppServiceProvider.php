@@ -45,7 +45,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Porta per a la gestió de vídeos, accessible per video managers i super admins
         Gate::define('manage-videos', function (User $user) {
-            return $user->hasRole('video_manager') || $user->isSuperAdmin() || $user->hasRole('regular');
+            return $user->hasRole('video_manager') || $user->isSuperAdmin();
         });
 
     }

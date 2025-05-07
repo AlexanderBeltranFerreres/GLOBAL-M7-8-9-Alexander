@@ -29,9 +29,11 @@ class VideosManageController extends Controller
 
     public function store(Request $request)
     {
+        //dd(auth()->id());
         if (!auth()->user()->can('manage-videos')) {
             abort(403, 'Necessites permisos de administrado');
         }
+        logger('Abans de crear vídeo', ['user_id' => auth()->id()]);
 
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -53,8 +55,9 @@ class VideosManageController extends Controller
             'series_id' => $validated['series_id'],
             'user_id' => auth()->id()
         ]);
-
+        logger('DESPRES de crear vídeo', ['user_id' => auth()->id()]);
         return redirect()->route('videos.manage.index')->with('success', 'El video s\'ha creat correctament');
+
     }
 
     public function show(string $id)
