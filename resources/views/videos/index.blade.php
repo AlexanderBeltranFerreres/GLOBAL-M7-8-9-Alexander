@@ -1,17 +1,23 @@
 <x-layout>
     <div class="container">
         <div class="row">
+            @if (Auth::check())
+                <div class="col-12 mb-3">
+                    <a href="{{ route('videos.create') }}" class="btn btn-primary">Crear Vídeo</a>
+                </div>
+            @endif
+
             @foreach ($videos as $video)
                 <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
-                    <div class="card border-0 shadow-renaissance rounded" onclick="window.location='{{ route('videos.show', $video->id) }}'">
+                    <div class="card border-0 shadow-sm rounded" onclick="window.location='{{ route('videos.show', $video->id) }}'">
                         <!-- Miniatura com a imatge destacada -->
-                        <iframe class="card-img-top" width="560" height="315" src="{{ $video->url }}?autoplay=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="pointer-events: none;"></iframe>
+                        <iframe class="card-img-top" width="560" height="315" src="{{ $video->url }}?autoplay=0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="pointer-events: none;"></iframe>
 
                         <!-- Títol i descripció -->
-                        <div class="card-body p-3">
-                            <h5 class="card-title text-truncate" style="font-size: 16px; font-weight: 600; color: #3b3b3b;">{{ $video->title }}</h5>
-                            <p class="card-text text-truncate" style="font-size: 13px; color: #737373;">{{ \Str::limit($video->description, 60) }}</p>
-                            <a href="{{ route('videos.show', $video->id) }}" class="btn btn-outline-renaissance btn-sm">Veure Detall</a>
+                        <div class="card-body p-2">
+                            <h5 class="card-title text-truncate" style="font-size: 14px; font-weight: 600;">{{ $video->title }}</h5>
+                            <p class="card-text text-truncate" style="font-size: 12px; color: #606060;">{{ \Str::limit($video->description, 60) }}</p>
+                            <a href="{{ route('videos.show', $video->id) }}" class="btn btn-outline-primary btn-sm">Veure Detall</a>
                         </div>
                     </div>
                 </div>

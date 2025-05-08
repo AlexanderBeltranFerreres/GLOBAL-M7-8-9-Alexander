@@ -47,6 +47,8 @@ Route::middleware(['auth', 'can:manage-videos'])
 Route::middleware(['auth'])->group(function () {
     Route::get('/series', [SeriesController::class, 'index'])->name('series.index');
     Route::get('/series/{id}', [SeriesController::class, 'show'])->name('series.show');
+    Route::get('/create', [SeriesManageController::class, 'create'])->name('create');
+    Route::post('/', [SeriesManageController::class, 'store'])->name('store');
 });
 
 /**
