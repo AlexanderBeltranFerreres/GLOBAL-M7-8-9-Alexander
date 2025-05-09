@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\VideoCreated;
 use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
 use Illuminate\View\View;
 use Tests\Feature\Videos\VideosManageControllerTest;
 
@@ -56,6 +58,9 @@ class VideosManageController extends Controller
             'user_id' => auth()->id()
         ]);
         logger('DESPRES de crear vídeo', ['user_id' => auth()->id()]);
+
+        Event::dispatch(new VideoCreated($video));
+
         return redirect()->route('videos.manage.index')->with('success', 'El video s\'ha creat correctament');
 
     }

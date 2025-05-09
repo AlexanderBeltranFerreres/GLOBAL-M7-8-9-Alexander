@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\VideoCreated;
 use App\Models\Serie;
 use App\Models\Video;
 use Illuminate\Auth\Access\AuthorizationException;
