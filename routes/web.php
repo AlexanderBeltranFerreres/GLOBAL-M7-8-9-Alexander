@@ -88,3 +88,7 @@ Route::middleware(['auth', 'can:manage-users'])
         Route::put('/{user}', [UsersManageController::class, 'update'])->name('update');
         Route::delete('/{user}', [UsersManageController::class, 'destroy'])->name('destroy');
     });
+
+Route::get('/notifications', function () {
+    return view('notifications');
+});

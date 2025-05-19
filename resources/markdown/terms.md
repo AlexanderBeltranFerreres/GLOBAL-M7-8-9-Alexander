@@ -351,3 +351,69 @@ Edit this file to define the terms of service for your application.
 
 15. **Validació amb Larastan:**
     - Tots els nous fitxers han estat validades amb Larastan per assegurar la qualitat del codi.
+
+## SPRINT 7
+
+### Què s'ha fet al 7è Sprint?
+
+#### Correccions del SPRINT 6:
+- S'han corregit diversos errors detectats durant el sisè sprint.
+- En cas que al modificar el codi fallés algun test anterior, s'ha corregit el test o el codi corresponent.
+
+#### Noves funcionalitats:
+
+1. **Permetre als usuaris regulars crear sèries i afegir vídeos a la sèrie:**
+    - S'ha verificat que els usuaris regulars puguin crear sèries.
+    - També poden afegir vídeos a una sèrie ja existent.
+
+2. **Creació de l'esdeveniment `VideoCreated`:**
+    - S'ha creat el fitxer `app/Events/VideoCreated.php`.
+    - Inclou el constructor amb la informació del vídeo.
+    - S'ha implementat `BroadcastOn` i `broadcastAs`.
+    - L'esdeveniment implementa `ShouldBroadcast`.
+
+3. **Disparar l'esdeveniment en el controlador:**
+    - Al mètode `store` del `VideoController`, s'ha afegit la crida a `event(new VideoCreated($video));`.
+
+4. **Creació del listener `SendVideoCreatedNotification`:**
+    - Fitxer: `app/Listeners/SendVideoCreatedNotification.php`.
+    - Conté la funció `handle(VideoCreated $event)`.
+    - Aquesta funció envia un correu als administradors.
+    - També envia la notificació `VideoCreated`.
+
+5. **Registre de l’esdeveniment i listener a `EventServiceProvider`:**
+    - Fitxer: `app/Providers/EventServiceProvider.php`.
+    - S'han registrat l'esdeveniment `VideoCreated` i el listener `SendVideoCreatedNotification`.
+
+6. **Configuració del servidor de correu:**
+    - S'ha creat un compte a Mailtrap (o Mailchimp).
+    - El fitxer `.env` s’ha configurat amb les credencials de Mailtrap.
+
+7. **Configuració de Pusher:**
+    - S'ha creat un compte a Pusher.
+    - Les claus s'han afegit al fitxer `.env`.
+    - Al fitxer `config/broadcasting.php` s'ha verificat que Pusher sigui el broadcaster per defecte.
+
+8. **Configuració del broadcast:**
+    - A `App\Events\VideoCreated`, s’ha afegit `broadcastAs`.
+    - S’ha assegurat que s’implementa `ShouldBroadcast`.
+    - A `SendVideoCreatedNotification.php`, s'ha assegurat que l'event es transmet per Pusher.
+
+9. **Instal·lació de dependències per a Pusher:**
+    - S’han instal·lat els paquets `laravel-echo` i `pusher-js` via NPM.
+
+10. **Configuració de Laravel Echo:**
+    - Al fitxer `resources/js/bootstrap.js` s’ha configurat Laravel Echo per escoltar els esdeveniments de Pusher.
+
+11. **Vista de notificacions push:**
+    - S’ha creat una vista per mostrar les notificacions rebudes en temps real via Pusher.
+
+12. **Ruta per a notificacions:**
+    - S’ha afegit una nova ruta que mostra les notificacions push a la interfície.
+
+13. **Validació amb Larastan:**
+    - Tots els nous fitxers han estat validats amb Larastan per assegurar la qualitat del codi.
+
+14. **Afegit al markdown:**
+    - S’ha documentat aquest sprint al fitxer `resources/markdown/terms.md`.
+

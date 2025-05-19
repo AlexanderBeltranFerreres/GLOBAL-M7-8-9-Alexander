@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Video;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -10,27 +11,41 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class VideoCreated
+class VideoCreated implements ShouldBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
-
-    /**
-     * Create a new event instance.
-     */
-    public function __construct()
+    use InteractsWithSockets, SerializesModels;
+    public $video;
+    public function __construct(Video $video)
     {
-        //
+        $this->video = $video;
     }
-
     /**
-     * Get the channels the event should broadcast on.
+     * Funció que defineix el canal de broadcast
      *
-     * @return array<int, \Illuminate\Broadcasting\Channel>
+     * @return \Illuminate\Broadcasting\Channel
      */
-    public function broadcastOn(): array
+    public function broadcastOn()
+    {
+        return new Channel('videos');
+    }
+    /**
+     * Funció per definir el nom de l'event broadcast
+     *
+     * @return string
+     */
+    public function broadcastAs()
+    {
+        return 'video.created';  // El canl configurat al config/broatcast
+    }
+    /**
+     * Opcional: Definir les dades que es transmetran amb el broadcast
+     */
+    public function broadcastWith()
     {
         return [
-            new PrivateChannel('channel-name'),
+            'id' => $this->video->id,
+            'title' => $this->video->title,
+            'created_at' => $this->video->created_at,
         ];
     }
 }
