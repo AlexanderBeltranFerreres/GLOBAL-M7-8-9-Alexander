@@ -1,140 +1,75 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ca">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ $title ?? 'Videos App' }}</title>
-    <style>
-        /* Header Styles */
-        .app-header {
-            background-color: #4E73DF; /* Blau vibrant */
-            color: #fff;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-        }
-
-        .app-header-title {
-            font-size: 32px;
-            font-weight: 700;
-            margin: 0;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        /* Navbar Styles */
-        .navbar {
-            background-color: #333;
-            padding: 15px 0;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .navbar-nav {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            text-align: center;
-        }
-
-        .navbar-nav li {
-            display: inline-block;
-            margin: 0 20px;
-        }
-
-        .navbar-nav a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 18px;
-            font-weight: 500;
-            text-transform: uppercase;
-            transition: color 0.3s ease;
-        }
-
-        .navbar-nav a:hover {
-            color: #f8f9fa;
-            text-decoration: underline;
-        }
-
-        /* Main content area */
-        main {
-            padding: 40px 20px;
-            background-color: #f4f6f9;
-            min-height: 600px;
-        }
-
-        /* Footer Styles */
-        .app-footer {
-            background-color: #222;
-            color: #aaa;
-            padding: 20px;
-            text-align: center;
-            border-top: 1px solid #444;
-            margin-top: 40px;
-        }
-
-        .app-footer-text {
-            font-size: 14px;
-            margin: 0;
-            color: #bbb;
-        }
-
-        /* Button-like links in the navbar */
-        .navbar-nav a {
-            padding: 10px 20px;
-            border-radius: 25px;
-            background-color: #575757;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .navbar-nav a:hover {
-            background-color: #4E73DF;
-            transform: scale(1.05);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .app-header-title {
-                font-size: 28px;
-            }
-
-            .navbar-nav li {
-                display: block;
-                margin: 10px 0;
-            }
-
-            .navbar-nav a {
-                font-size: 16px;
-                padding: 10px 15px;
-            }
-        }
-    </style>
     @vite('resources/css/app.css')
 </head>
-<body>
-<header class="app-header">
-    <h1 class="app-header-title">VideosApp</h1>
+<body class="bg-gray-100 min-h-screen flex flex-col">
+
+<header class="bg-blue-600 text-white p-8 text-center rounded-b-lg shadow-md">
+    <h1 class="text-4xl md:text-5xl font-extrabold uppercase tracking-widest font-sans">
+        VideosApp
+    </h1>
 </header>
 
 <!-- Navbar -->
-<nav class="navbar">
-    <ul class="navbar-nav">
-        <li><a href="{{ route('videos.manage.index') }}">Gestió de Vídeos</a></li>
-        <li><a href="{{ route('videos.index') }}">Inici</a></li>
-        <li><a href="{{route('users.index')}}">Usuaris</a></li>
-        <li><a href="{{route('users.manage.index')}}">Gestió d'Usuaris</a></li>
-        <li><a href="{{route('series.index')}}">Series</a></li>
-        <li><a href="{{route('series.manage.index')}}">Gestió de Series</a></li>
+<nav class="bg-gray-800 shadow-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <!-- Logo o títol petit, si cal -->
+            <div class="flex-shrink-0 text-white font-bold text-lg">
+                VideosApp
+            </div>
+
+            <!-- Botó menú mòbil -->
+            <div class="md:hidden">
+                <button id="btn-menu" aria-label="Toggle menu" class="text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                        <path d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Menú ordinador i mòbil -->
+            <ul id="menu" class="hidden md:flex md:space-x-6 text-white font-semibold uppercase tracking-wide text-sm">
+                <li><a href="{{ route('videos.manage.index') }}" class="btn-navbar">Gestió de Vídeos</a></li>
+                <li><a href="{{ route('videos.index') }}" class="btn-navbar">Inici</a></li>
+                <li><a href="{{ route('users.index') }}" class="btn-navbar">Usuaris</a></li>
+                <li><a href="{{ route('users.manage.index') }}" class="btn-navbar">Gestió d'Usuaris</a></li>
+                <li><a href="{{ route('series.index') }}" class="btn-navbar">Series</a></li>
+                <li><a href="{{ route('series.manage.index') }}" class="btn-navbar">Gestió de Series</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Menú desplegable mòbil -->
+    <ul id="menu-mobile" class="md:hidden bg-gray-700 text-white font-semibold uppercase tracking-wide text-sm hidden flex-col space-y-2 px-4 py-3">
+        <li><a href="{{ route('videos.manage.index') }}" class="btn-navbar-mobile">Gestió de Vídeos</a></li>
+        <li><a href="{{ route('videos.index') }}" class="btn-navbar-mobile">Inici</a></li>
+        <li><a href="{{ route('users.index') }}" class="btn-navbar-mobile">Usuaris</a></li>
+        <li><a href="{{ route('users.manage.index') }}" class="btn-navbar-mobile">Gestió d'Usuaris</a></li>
+        <li><a href="{{ route('series.index') }}" class="btn-navbar-mobile">Series</a></li>
+        <li><a href="{{ route('series.manage.index') }}" class="btn-navbar-mobile">Gestió de Series</a></li>
     </ul>
 </nav>
 
-<main>
+<main class="flex-grow max-w-7xl mx-auto p-6">
     {{ $slot }}
 </main>
 
-<footer class="app-footer">
-    <p class="app-footer-text">&copy; {{ date('Y') }} Alexander Beltran Ferrers</p>
+<footer class="bg-gray-900 text-gray-400 text-center py-4 border-t border-gray-700">
+    &copy; {{ date('Y') }} Alexander Beltran Ferrers
 </footer>
+
+<script>
+    // Toggle menú mòbil
+    const btnMenu = document.getElementById('btn-menu');
+    const menuMobile = document.getElementById('menu-mobile');
+    btnMenu.addEventListener('click', () => {
+        menuMobile.classList.toggle('hidden');
+    });
+</script>
 </body>
 </html>

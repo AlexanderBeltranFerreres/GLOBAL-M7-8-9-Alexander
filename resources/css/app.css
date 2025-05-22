@@ -5,3 +5,13 @@
 [x-cloak] {
     display: none;
 }
+
+@layer components {
+    .btn-navbar {
+        @apply px-4 py-2 rounded-full bg-gray-600 hover:bg-blue-600 transition-colors duration-300 inline-block;
+    }
+    .btn-navbar-mobile {
+        @apply block px-4 py-2 rounded-md bg-gray-600 hover:bg-blue-600 transition-colors duration-300;
+    }
+}
+

@@ -3,7 +3,7 @@
         <div class="row">
             @if (Auth::check())
                 <div class="col-12 mb-3">
-                    <a href="{{ route('videos.create') }}" class="btn btn-primary">Crear Vídeo</a>
+                    <a href="{{ route('create') }}" class="btn btn-primary">Crear Vídeo</a>
                 </div>
             @endif
 
