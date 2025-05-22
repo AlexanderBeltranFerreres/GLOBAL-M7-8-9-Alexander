@@ -6,9 +6,9 @@ use App\Events\VideoCreated;
 use App\Models\User;
 use App\Notifications\VideoCreatedNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Notification;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 
 class SendVideoCreatedNotification
 {

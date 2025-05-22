@@ -40,6 +40,8 @@
                 <li><a href="{{ route('users.manage.index') }}" class="btn-navbar">Gestió d'Usuaris</a></li>
                 <li><a href="{{ route('series.index') }}" class="btn-navbar">Series</a></li>
                 <li><a href="{{ route('series.manage.index') }}" class="btn-navbar">Gestió de Series</a></li>
+
+                <li><a href="{{ route('notifications.index') }}" class="btn-navbar-mobile">Notificacions</a></li>
             </ul>
         </div>
     </div>
@@ -52,6 +54,7 @@
         <li><a href="{{ route('users.manage.index') }}" class="btn-navbar-mobile">Gestió d'Usuaris</a></li>
         <li><a href="{{ route('series.index') }}" class="btn-navbar-mobile">Series</a></li>
         <li><a href="{{ route('series.manage.index') }}" class="btn-navbar-mobile">Gestió de Series</a></li>
+        <li><a href="{{ route('notifications.index') }}" class="btn-navbar-mobile">Notificacions</a></li>
     </ul>
 </nav>
 

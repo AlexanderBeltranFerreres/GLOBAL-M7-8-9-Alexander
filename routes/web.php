@@ -91,4 +91,4 @@ Route::middleware(['auth', 'can:manage-users'])
 
 Route::get('/notifications', function () {
     return view('notifications');
-});
+})->name('notifications.index');
