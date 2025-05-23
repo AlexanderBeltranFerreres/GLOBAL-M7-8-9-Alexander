@@ -46,7 +46,9 @@
             </div>
 
             <div class="actions-row">
-                <button type="submit" class="btn-main-action">Crear Vídeo</button>
+                <x-button variant="crear" type="submit">
+                    Crear Vídeo
+                </x-button>
             </div>
         </form>
     </div>

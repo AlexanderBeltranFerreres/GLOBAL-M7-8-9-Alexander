@@ -6,8 +6,10 @@
             <div class="alert alert-success mt-3">{{ session('success') }}</div>
         @endif
 
-        <!-- Botó destacat per crear usuari -->
-        <a href="{{ route('users.manage.create') }}" class="btn btn-create-user mb-3">Crear Usuari</a>
+        <x-button variant="crear" href="{{ route('users.manage.create') }}" class="mb-3">
+            Crear Usuari
+        </x-button>
+
 
         <!-- Taula que ocupa tota l'amplada disponible -->
         <div class="table-responsive">
@@ -27,12 +29,18 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>
-                            <a href="{{ route('users.manage.edit', $user) }}" class="btn btn-warning btn-sm">Editar</a>
-                            <form action="{{ route('users.manage.destroy', $user) }}" method="POST" style="display:inline;">
+                            <x-button variant="editar" href="{{ route('users.manage.edit', $user) }}" class="btn-sm px-3 py-1">
+                                Editar
+                            </x-button>
+
+                            <form action="{{ route('users.manage.destroy', $user) }}" method="POST" style="display:inline;" onsubmit="return confirm('Estàs segur?')">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Estàs segur?')">Eliminar</button>
+                                <x-button variant="borrar" type="submit" class="btn-sm px-3 py-1">
+                                    Eliminar
+                                </x-button>
                             </form>
+
                         </td>
                     </tr>
                 @endforeach
@@ -57,22 +65,7 @@
         margin-bottom: 20px;
     }
 
-    /* Estil per al botó de crear usuari */
-    .btn-create-user {
-        background-color: #007bff;
-        color: white;
-        font-size: 16px;
-        font-weight: 600;
-        padding: 12px 20px;
-        border-radius: 5px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease, background-color 0.3s ease;
-    }
 
-    .btn-create-user:hover {
-        background-color: #0056b3;
-        transform: scale(1.05);
-    }
 
     .alert {
         font-size: 14px;
@@ -112,30 +105,7 @@
         text-decoration: underline;
     }
 
-    .btn-warning, .btn-danger {
-        font-size: 12px;
-        padding: 6px 12px;
-        border-radius: 4px;
-        transition: background-color 0.3s ease;
-    }
 
-    .btn-warning {
-        background-color: #ffc107;
-        color: white;
-    }
-
-    .btn-warning:hover {
-        background-color: #e0a800;
-    }
-
-    .btn-danger {
-        background-color: #dc3545;
-        color: white;
-    }
-
-    .btn-danger:hover {
-        background-color: #c82333;
-    }
 
     /* Estil per fer la taula més responsive */
     .table-responsive {

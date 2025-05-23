@@ -29,7 +29,10 @@
                 <input type="password" name="password" class="form-control" data-qa="input-password" required>
             </div>
 
-            <button type="submit" class="btn btn-create-user">Crear</button>
+            <x-button variant="crear" type="submit" class="btn-create-user">
+                Crear
+            </x-button>
+
         </form>
     </div>
 
@@ -49,22 +52,6 @@
         margin-bottom: 20px;
     }
 
-    /* Estil per al botó de crear usuari */
-    .btn-create-user {
-        background-color: #007bff;
-        color: white;
-        font-size: 16px;
-        font-weight: 600;
-        padding: 12px 20px;
-        border-radius: 5px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease, background-color 0.3s ease;
-    }
-
-    .btn-create-user:hover {
-        background-color: #0056b3;
-        transform: scale(1.05);
-    }
 
     /* Estil per a l'alerta d'errors */
     .alert-danger {

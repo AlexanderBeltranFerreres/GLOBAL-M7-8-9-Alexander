@@ -25,16 +25,17 @@
                 </a>
 
                 @if (auth()->user() && auth()->user()->id == $video['user_id'])
-                    <div class="actions-row mt-4">
-                        <a href="{{ route('videos.manage.edit', $video['id']) }}" class="btn-main-action mr-3">
+                    <div class="actions-row mt-4 space-x-3">
+                        <x-button variant="editar" href="{{ route('videos.manage.edit', $video['id']) }}">
                             Editar
-                        </a>
-                        <form action="{{ route('videos.manage.destroy', $video['id']) }}" method="POST" style="display:inline;">
+                        </x-button>
+
+                        <form action="{{ route('videos.manage.destroy', $video['id']) }}" method="POST" style="display:inline;" onsubmit="return confirm('Segur que vols eliminar aquest vídeo?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn-main-action bg-red-600 hover:bg-red-700">
+                            <x-button variant="borrar" type="submit">
                                 Eliminar
-                            </button>
+                            </x-button>
                         </form>
                     </div>
                 @endif

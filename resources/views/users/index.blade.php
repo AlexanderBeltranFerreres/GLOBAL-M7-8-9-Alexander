@@ -1,207 +1,57 @@
 <x-layout>
+    <div class="max-w-7xl mx-auto p-6">
 
-    <div class="container">
-        <h1>Llista d'Usuaris</h1>
+        <h1 class="text-3xl font-extrabold text-center text-gray-800 mb-8">Llista d'Usuaris</h1>
 
-        <form method="GET" action="{{ route('users.index') }}" class="search-form mb-3">
-            <div class="search-bar">
-                <input type="text" name="search" class="search-input" placeholder="Cerca un usuari..." value="{{ request('search') }}">
-                <button type="submit" class="search-btn">
-                    <i class="fas fa-search"></i>
+        <form method="GET" action="{{ route('users.index') }}" role="search" aria-label="Cerca usuaris" class="max-w-md mx-auto mb-6">
+            <div class="relative">
+                <input
+                    type="search"
+                    name="search"
+                    class="w-full pl-4 pr-10 py-2 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600"
+                    placeholder="Cerca un usuari..."
+                    value="{{ request('search') }}"
+                    aria-label="Cerca un usuari"
+                >
+                <button type="submit" aria-label="Buscar" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-600 hover:text-blue-600">
+                    <i class="fas fa-search" aria-hidden="true"></i>
                 </button>
             </div>
         </form>
 
-        <div class="user-list">
-            @foreach($users as $user)
-                <div class="user-card">
-                    <div class="user-avatar">
-                        @if($user->profile_photo_url)
-                            <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}'s photo" class="avatar-img">
-                        @else
-                            <div class="avatar-placeholder">{{ strtoupper(substr($user->name, 0, 1)) }}</div>
-                        @endif
-                    </div>
-                    <div class="user-info">
-                        <h5 class="user-name">{{ $user->name }}</h5>
-                        <p class="user-email">{{ $user->email }}</p>
-                        <a href="{{ route('users.show', $user->id) }}" class="btn btn-info btn-sm">Veure Detall</a>
-                    </div>
-                </div>
-            @endforeach
-        </div>
+        @if($users->isEmpty())
+            <p class="text-center text-gray-500 text-lg">No s'han trobat usuaris.</p>
+        @else
+            <div class="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                @foreach($users as $user)
+                    <div tabindex="0" aria-label="Usuari {{ $user->name }}"
+                         class="bg-white rounded-lg shadow-md p-4 flex items-center space-x-4 cursor-pointer hover:shadow-lg transition"
+                         onclick="window.location='{{ route('users.show', $user->id) }}'"
+                         onkeypress="if(event.key === 'Enter') window.location='{{ route('users.show', $user->id) }}'">
 
-        {{ $users->links() }}
+                        <div class="w-16 h-16 rounded-full overflow-hidden flex items-center justify-center bg-gray-300 text-white font-bold text-xl shrink-0">
+                            @if($user->profile_photo_url)
+                                <img src="{{ $user->profile_photo_url }}" alt="Foto de perfil de {{ $user->name }}" class="w-full h-full object-cover">
+                            @else
+                                {{ strtoupper(substr($user->name, 0, 1)) }}
+                            @endif
+                        </div>
+
+                        <div class="flex flex-col flex-grow">
+                            <h5 class="text-lg font-semibold text-gray-800 truncate" title="{{ $user->name }}">{{ $user->name }}</h5>
+                            <p class="text-gray-600 text-sm truncate" title="{{ $user->email }}">{{ $user->email }}</p>
+                            <a href="{{ route('users.show', $user->id) }}" class="mt-2 inline-block text-blue-600 hover:text-blue-800 font-semibold text-sm" aria-label="Veure detall de {{ $user->name }}">
+                                Veure Detall
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="mt-8">
+                {{ $users->links() }}
+            </div>
+        @endif
+
     </div>
-
 </x-layout>
-<!-- Estils CSS -->
-<style>
-    .container {
-        padding: 50px;
-        background-color: #f9f9f9;
-        border-radius: 16px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-        max-width: 1100px;
-        margin: auto;
-    }
-
-    h1 {
-        font-family: 'Georgia', serif;
-        font-size: 28px;
-        font-weight: 800;
-        color: #4a2c2a;
-        margin-bottom: 24px;
-        text-align: center;
-    }
-
-    .search-form {
-        max-width: 600px;
-        margin: 0 auto 30px;
-    }
-
-    .search-bar {
-        position: relative;
-        display: flex;
-        align-items: center;
-        width: 100%;
-        border-radius: 24px;
-        background-color: #f1f1f1;
-    }
-
-    .search-input {
-        width: 100%;
-        padding: 12px 20px;
-        font-size: 16px;
-        border: none;
-        background-color: transparent;
-        border-radius: 24px;
-        outline: none;
-    }
-
-    .search-btn {
-        position: absolute;
-        right: 10px;
-        background: transparent;
-        border: none;
-        color: #333;
-        font-size: 22px;
-        cursor: pointer;
-    }
-
-    .search-btn:hover {
-        color: #007bff;
-    }
-
-    .user-list {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 20px;
-    }
-
-    .user-card {
-        background-color: white;
-        border-radius: 14px;
-        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
-        padding: 20px;
-        display: flex;
-        align-items: center;
-        transition: transform 0.3s ease;
-    }
-
-    .user-card:hover {
-        transform: translateY(-5px);
-    }
-
-    .user-avatar {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        overflow: hidden;
-        margin-right: 20px;
-        position: relative;
-    }
-
-    .avatar-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .avatar-placeholder {
-        width: 100%;
-        height: 100%;
-        background-color: #ccc;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 22px;
-        color: white;
-        font-weight: bold;
-    }
-
-    .user-info {
-        flex-grow: 1;
-    }
-
-    .user-name {
-        font-size: 20px;
-        font-weight: 700;
-        color: #333;
-        margin-bottom: 8px;
-    }
-
-    .user-email {
-        font-size: 14px;
-        color: #666;
-        margin-bottom: 12px;
-    }
-
-    .btn-info {
-        background-color: #007bff;
-        color: white;
-        padding: 8px 14px;
-        border-radius: 6px;
-        font-size: 14px;
-        font-weight: 600;
-        text-decoration: none;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-    }
-
-    .btn-info:hover {
-        background-color: #0056b3;
-        transform: scale(1.05);
-    }
-
-    .pagination {
-        justify-content: center;
-        margin-top: 30px;
-    }
-
-    .fa-search {
-        font-size: 20px;
-    }
-
-    /* Responsivitat */
-    @media (max-width: 768px) {
-        .user-card {
-            flex-direction: column;
-            text-align: center;
-        }
-
-        .user-avatar {
-            margin-right: 0;
-            margin-bottom: 15px;
-        }
-
-        .search-bar {
-            width: 100%;
-        }
-
-        .btn-info {
-            width: 100%;
-            font-size: 13px;
-        }
-    }
-</style>
-

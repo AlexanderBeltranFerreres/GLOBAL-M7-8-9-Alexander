@@ -39,7 +39,7 @@
                 <input type="number" class="form-control" id="series_id" name="series_id">
             </div>
 
-            <button type="submit" class="btn btn-create-video mt-3">Crear Vídeo</button>
+            <x-button variant="crear" type="submit" class="btn btn-create-video mt-3">Crear Vídeo</x-button>
         </form>
     </div>
 
@@ -93,28 +93,6 @@
         background-color: #fffefc;
         outline: none;
         box-shadow: 0 0 0 2px rgba(255, 138, 101, 0.2);
-    }
-
-    .btn-create-video {
-        background-color: #d88b61;
-        color: white;
-        font-size: 16px;
-        font-weight: 700;
-        padding: 14px 24px;
-        border-radius: 10px;
-        border: none;
-        cursor: pointer;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        transition: background-color 0.3s ease, transform 0.3s ease;
-        display: block;
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto;
-    }
-
-    .btn-create-video:hover {
-        background-color: #bb6b44;
-        transform: scale(1.04);
     }
 
     .btn-success {

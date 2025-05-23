@@ -17,7 +17,9 @@
                 <input type="email" name="email" class="form-control input-edit" value="{{ $user->email }}" required>
             </div>
 
-            <button type="submit" class="btn btn-update">Actualitzar</button>
+            <x-button variant="editar" type="submit" class="btn-update">
+                Actualitzar
+            </x-button>
         </form>
     </div>
 
@@ -42,35 +44,7 @@
         color: #555;
     }
 
-    .input-edit {
-        font-size: 14px;
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #ddd;
-        transition: border 0.3s ease;
-    }
 
-    .input-edit:focus {
-        border-color: #0069d9;
-        outline: none;
-    }
-
-    .btn-update {
-        background-color: #007bff;
-        color: white;
-        font-size: 16px;
-        font-weight: 600;
-        padding: 12px 20px;
-        border-radius: 5px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease, background-color 0.3s ease;
-        margin-top: 20px;
-    }
-
-    .btn-update:hover {
-        background-color: #0056b3;
-        transform: scale(1.05);
-    }
 
     /* Estil per als inputs */
     .form-group {

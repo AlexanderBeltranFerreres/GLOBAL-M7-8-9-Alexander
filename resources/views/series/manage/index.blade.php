@@ -3,9 +3,12 @@
         <h1>Gestió de Sèries</h1>
 
         <!-- Botó destacat per crear sèrie -->
-        <a href="{{ route('series.manage.create') }}" class="btn btn-create-series mb-3" data-qa="create-series">Crear Sèrie</a>
+        <a href="{{ route('series.manage.create') }}" data-qa="create-series">
+            <x-button variant="crear" class="mb-3">Crear Sèrie</x-button>
+        </a>
 
-        @if(session('success'))
+
+    @if(session('success'))
             <div class="alert alert-success mt-3">{{ session('success') }}</div>
         @endif
 
@@ -29,13 +32,20 @@
                         <td>{{ \Str::limit($serie->description, 50) }}</td>
                         <td>{{ $serie->published_at ? \Carbon\Carbon::parse($serie->published_at)->format('d-m-Y') : 'No publicat' }}</td>
                         <td>
-                            <a href="{{ route('series.manage.edit', $serie) }}" class="btn btn-warning btn-sm" data-qa="edit-series-{{ $serie->id }}">Editar</a>
+                            <!-- Botó Editar -->
+                            <a href="{{ route('series.manage.edit', $serie) }}" data-qa="edit-series-{{ $serie->id }}">
+                                <x-button variant="editar" size="sm">Editar</x-button>
+                            </a>
 
+                            <!-- Botó Eliminar -->
                             <form action="{{ route('series.manage.destroy', $serie) }}" method="POST" style="display:inline;" data-qa="delete-series-{{ $serie->id }}">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Estàs segur que vols eliminar aquesta sèrie? Els vídeos associats també seran desassignats.')">Eliminar</button>
+                                <x-button variant="borrar" type="submit" size="sm" onclick="return confirm('Estàs segur que vols eliminar aquesta sèrie? Els vídeos associats també seran desassignats.')">
+                                    Eliminar
+                                </x-button>
                             </form>
+
                         </td>
                     </tr>
                 @endforeach
@@ -60,22 +70,6 @@
         margin-bottom: 20px;
     }
 
-    .btn-create-series {
-        background-color: #28a745;
-        color: white;
-        font-size: 16px;
-        font-weight: 600;
-        padding: 12px 20px;
-        border-radius: 5px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .btn-create-series:hover {
-        background-color: #218838;
-        transform: scale(1.05);
-        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
-    }
 
     .alert {
         font-size: 14px;

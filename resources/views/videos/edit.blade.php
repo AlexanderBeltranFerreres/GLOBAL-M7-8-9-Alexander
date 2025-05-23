@@ -50,7 +50,9 @@
             </div>
 
             <div class="actions-row">
-                <button type="submit" class="btn-main-action">Actualitzar Vídeo</button>
+                <x-button variant="editar" type="submit">
+                    Actualitzar Vídeo
+                </x-button>
             </div>
         </form>
     </div>

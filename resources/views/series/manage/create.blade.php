@@ -31,8 +31,9 @@
             </div>
 
             <div class="form-group">
-                <button type="submit" class="btn btn-create-series">Crear Sèrie</button>
+                <x-button type="submit" variant="crear">Crear Sèrie</x-button>
             </div>
+
         </form>
     </div>
 
@@ -80,20 +81,6 @@
         box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.25);
     }
 
-    .btn-create-series {
-        background-color: #007bff;
-        color: white;
-        font-size: 16px;
-        font-weight: 600;
-        padding: 12px 20px;
-        border-radius: 5px;
-        transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-    .btn-create-series:hover {
-        background-color: #0056b3;
-        transform: scale(1.05);
-    }
 
     @media (max-width: 768px) {
         .container {
@@ -106,11 +93,6 @@
 
         .form-control {
             font-size: 12px;
-        }
-
-        .btn-create-series {
-            font-size: 14px;
-            padding: 10px 15px;
         }
     }
 </style>
