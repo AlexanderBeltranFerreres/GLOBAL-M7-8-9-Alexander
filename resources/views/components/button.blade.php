@@ -1,5 +1,5 @@
 @props([
-    'variant' => 'primary', // DIFERENTS TIUPUS AMB ELS ESTILS
+    'variant' => 'primary', // DIFERENTS TIUPUS
     'href' => null,
 ])
 
